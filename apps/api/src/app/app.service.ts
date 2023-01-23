@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { User } from '@realiza/shared/types';
 
 @Injectable()
 export class AppService {
-  getData(): { message: string } {
-    return { message: 'Welcome to api!' };
+  getData(): User {
+    return { name: 'João' };
   }
 }
