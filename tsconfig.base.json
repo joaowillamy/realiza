@@ -18,6 +18,7 @@
       "@realiza/api/authentication": [
         "modules/api/authentication/src/index.ts"
       ],
+      "@realiza/api/user": ["modules/api/user/src/index.ts"],
       "@realiza/frontend/authentication": [
         "modules/frontend/authentication/src/index.ts"
       ],
