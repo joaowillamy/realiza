@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import { User } from '@realiza/shared/types';
 
 const StyledPage = styled.div`
   .page {
   }
 `;
 
-export function Index({ user }: {user: User}) {
+export function Index({ data }) {
   /*
    * Replace the elements below with your own.
    *
@@ -14,7 +13,7 @@ export function Index({ user }: {user: User}) {
    */
   return (
     <StyledPage>
-      {user.name}
+      {data.message}
     </StyledPage>
   );
 }
@@ -24,8 +23,8 @@ export default Index;
 export async function getServerSideProps() {
   // Fetch data from external API
   const res = await fetch(`http://localhost:3333/api`)
-  const data: User = await res.json()
+  const data = await res.json()
 
   // Pass data to the page via props
-  return { props: { user: data } }
+  return { props: { data } }
 }
