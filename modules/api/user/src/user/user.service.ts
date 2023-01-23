@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto, UpdateUserDto, User } from '@realiza/shared/types';
+
 
 @Injectable()
 export class UserService {
@@ -12,8 +12,11 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(username: string): User {
+    return {
+      password: 'asdf1234',
+      username: 'joao'
+    }
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
