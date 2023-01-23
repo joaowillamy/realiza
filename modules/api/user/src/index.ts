@@ -1,2 +1,2 @@
-export * from './user/user.module';
-export * from './user/user.service';
+export {UserModule} from './user/user.module';
+export {UserService} from './user/user.service';
