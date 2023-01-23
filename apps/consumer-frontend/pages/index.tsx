@@ -13,7 +13,8 @@ export function Index({ data }) {
    */
   return (
     <StyledPage>
-      {data.message}
+      Frontend using:
+      {` ` + data.message}
     </StyledPage>
   );
 }
