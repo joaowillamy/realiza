@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@realiza/shared/types": ["libs/shared/types/src/index.ts"]
+      "@realiza/frontend/authentication": [
+        "modules/frontend/authentication/src/index.ts"
+      ],
+      "@realiza/shared/types": ["modules/shared/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
