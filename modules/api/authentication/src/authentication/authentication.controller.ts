@@ -1,31 +1,55 @@
 import {
-  Controller, Post, UseGuards, Request, Get
+  Controller, Post, UseGuards, Get, ValidationPipe, Body
 } from '@nestjs/common';
-import { UserService } from '@realiza/api/user';
+import { CreateUserDto, CredentialsDto, ReturnUserDto, User, UserRole, UserService } from '@realiza/api/user';
 import { AuthenticationService } from './authentication.service';
+import { GetUser } from './decorator/get-user.decorator';
+import { Role } from './decorator/role.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { LocalAuthGuard } from './guards/localAuth.guard';
+import { RolesGuard } from './guards/roles.guard';
 
 @Controller('authentication')
 export class AuthenticationController {
   constructor(
+    private usersService: UserService,
     private authenticationService: AuthenticationService,
-    private userService: UserService
-    ) {}
+  ) {}
 
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
-  async login(@Request() req) {
-    return this.authenticationService.login(req.user);
+  @Post('/signup')
+  async signUp(
+    @Body(ValidationPipe) createUserDto: CreateUserDto,
+  ): Promise<{ message: string }> {
+    await this.authenticationService.signUp(createUserDto);
+    return {
+      message: 'Cadastro realizado com sucesso',
+    };
   }
 
+  @Post('/signin')
+  async signIn(
+    @Body(ValidationPipe) credentiaslsDto: CredentialsDto,
+  ): Promise<{ token: string }> {
+    console.log({credentiaslsDto});
+
+    return await this.authenticationService.signIn(credentiaslsDto);
+  }
+
+  @Get('/me')
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  async profile(@Request() req) {
-    // TODO
-    // return this.userService.findOne(req.user)
+  getMe(@GetUser() user: User): User {
+    return user;
   }
 
-  // TODO verify token
-  // TODO refresh token
+  @Post('/admin/signup')
+  @Role(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async createAdminUser(
+    @Body(ValidationPipe) createUserDto: CreateUserDto,
+  ): Promise<ReturnUserDto> {
+    const user = await this.usersService.createAdminUser(createUserDto);
+    return {
+      user,
+      message: 'Administrador cadastrado com sucesso',
+    };
+  }
 }

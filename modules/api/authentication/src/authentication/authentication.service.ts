@@ -1,30 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import {UserService} from '@realiza/api/user'
+import { Injectable, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
+import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto} from '@realiza/api/user'
 
 import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
-    private usersService: UserService,
-    private jwtService: JwtService
+    @InjectRepository(UserRepository)
+    private userRepository: UserRepository,
+    private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any | boolean> {
-    // TODO:
-    // const user = await this.usersService.findOne(username);
-    // if (user && user.password === pass) {
-    //   const { password, ...result } = user;
-    //   return result;
-    // }
-    // return false;
+  async signUp(createUserDto: CreateUserDto): Promise<User> {
+    if (createUserDto.password != createUserDto.passwordConfirmation) {
+      throw new UnprocessableEntityException('As senhas não conferem');
+    } else {
+      return await this.userRepository.createUser(createUserDto, UserRole.USER);
+    }
   }
 
-  async login(user: any) {
-    // TODO:
-    // const payload = { username: user.username, sub: user.userId };
-    // return {
-    //   access_token: this.jwtService.sign(payload),
-    // };
+  async signIn(credentialsDto: CredentialsDto) {
+    const user = await this.userRepository.checkCredentials(credentialsDto);
+
+    if (user === null) {
+      throw new UnauthorizedException('Credenciais inválidas');
+    }
+
+    const jwtPayload = {
+      id: user.id,
+    };
+    const token = await this.jwtService.sign(jwtPayload);
+
+    return { token };
   }
 }
