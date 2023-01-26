@@ -1,1 +1,1 @@
-export * from './envs';
+export { backendEnvs } from './envs.backend';

@@ -22,7 +22,8 @@ export class AuthenticationController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async profile(@Request() req) {
-      return this.userService.findOne(req.user)
+    // TODO
+    // return this.userService.findOne(req.user)
   }
 
   // TODO verify token
