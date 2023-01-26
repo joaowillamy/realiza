@@ -1,5 +1,5 @@
-import { envs } from "@realiza/shared/utils";
+import { backendEnvs } from '@realiza/shared/utils';
 
 export const jwtConstants = {
-  secret: envs.jwtSecret,
+  secret: backendEnvs.jwtSecret,
 };

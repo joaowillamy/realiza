@@ -11,6 +11,7 @@ import { CustomRepository } from '@realiza/api/infrastructure';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRole } from './user-roles.enum';
+import { CredentialsDto } from './dto/credentials.dto';
 
 @CustomRepository(User)
 export class UserRepository extends Repository<User> {
@@ -45,6 +46,17 @@ export class UserRepository extends Repository<User> {
           'Erro ao salvar o usuário no banco de dados',
         );
       }
+    }
+  }
+
+  async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
+    const { email, password } = credentialsDto;
+    const user = await this.findOne({ where: { email, status: true } });
+
+    if (user && (await user.checkPassword(password))) {
+      return user;
+    } else {
+      return null;
     }
   }
 

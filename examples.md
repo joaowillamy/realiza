@@ -1,29 +1,33 @@
-## authentication/profile
+## authentication/me
 
   ### 401
-    curl http://localhost:3333/api/authentication/profile
+    curl http://localhost:3333/api/authentication/me
     > {"statusCode":401,"message":"Unauthorized"}
 
   ### success
-    curl http://localhost:3333/api/authentication/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvYW8iLCJpYXQiOjE2NzQ1MDg5NzgsImV4cCI6MTY3NDUwOTAzOH0._33_tjJYsZhFHlMHMoLwbeFjVbJSMv8-IwmODs9k16g"
+    curl http://localhost:3333/api/authentication/me -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBlZjY3ZGI2LWZmMGEtNGJlOC04MDE4LTUzMGU0NzVkMGJjNiIsImlhdCI6MTY3NDc2OTU2OSwiZXhwIjoxNjc0Nzg3NTY5fQ.3i4nhVnHDdGyc9vGyus07ReKnyddNqQtwq5WuQprK_g"
 
-    > {"password":"asdf1234","username":"joao"}
+    > {"password":"asdf1234","email":"joao"}
 
-## authentication/login
 
-  ### 401
-  curl -X POST http://localhost:3333/api/authentication/login -d '{"username": "joao", "password": "asdf1234a"}' -H "Content-Type: application/json"
+## authentication/signup
+  ### 400 
+    curl -X POST http://localhost:3333/api/authentication/signup -d '{"email": "will@user.com", "password": "asdf1234", "name": "Will", "passwordConfirmation": "" }' -H "Content-Type: application/json"
+  ### success
+    curl -X POST http://localhost:3333/api/authentication/signup -d '{"email": "will@user.com", "password": "asdf1234", "name": "Will", "passwordConfirmation": "asdf1234" }' -H "Content-Type: application/json"
+
+## authentication/signin
+
+  ### admin success
+  curl -X POST http://localhost:3333/api/authentication/signin -d '{"email": "joao@gmail.com", "password": "asdf1234"}' -H "Content-Type: application/json"
   > {"statusCode":401,"message":"Unauthorized"}j
 
   ### success
-  curl -X POST http://localhost:3333/api/authentication/login -d '{"username": "joao", "password": "asdf1234"}' -H "Content-Type: application/json"
+  curl -X POST http://localhost:3333/api/authentication/signin -d '{"email": "will@user.com", "password": "asdf1234"}' -H "Content-Type: application/json"
 
-  > {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvYW8iLCJpYXQiOjE2NzQ1MDg4MTEsImV4cCI6MTY3NDUwODg3MX0.LHv_eXxhKWu-kpdEyQi8AHIHd64R8atzuD27Brdi2eY"}
+  > {"access_token":"<token>"}
 
 
-users
+authentication/admin/signup
   ### 400 Bad Request
-  curl -X POST http://localhost:3333/api/users -d '{"email": "joao@gmail.com", "name": "", "password": "asdf", "passwordConfirmation": "asdf"}' -H "Content-Type: application/json"
-
-  ### success
-    curl -X POST http://localhost:3333/api/users -d '{"email": "joao@gmail.com", "name": "joao", "password": "asdf1234", "passwordConfirmation": "asdf1234"}' -H "Content-Type: application/json"
+  curl -X POST http://localhost:3333/api/authentication/admin/signup -d '{"email": "joao@gmail.com", "name": "", "password": "asdf", "passwordConfirmation": "asdf"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMjNkODQyLWE0ZTktNDFhYS1iMzM0LWM2M2UyYWY0YjBhOCIsImlhdCI6MTY3NDc3NTAxMiwiZXhwIjoxNjc0NzkzMDEyfQ.UWgOPOtUUF29g6lo_UcnQUkTdRURu7_gpE-lZwXB0Qo"
