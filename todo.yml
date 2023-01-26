@@ -1,0 +1,46 @@
+frontend:
+# configure must have
+ - chakra ui
+ - React Hook Form
+ - ui module configured
+   - form
+   - button
+
+# feature:
+  pagina de login
+  pagina de criar usuário
+  pagina de usuário confirmado
+  pagina autenticado
+  pagina home
+
+  esqueceu a senha -> digite seu email
+  recuperar senha ->  confirme senha
+
+  google auth
+
+  estudar sobre:
+    lgpd
+
+# backlog
+ - nextseomessage
+ - nextpwa
+ - sitemap
+
+Backend:
+  ler artigo:
+   - https://medium.com/@iago.maiasilva/construindo-uma-api-com-nestjs-postgresql-e-docker-parte-1-criando-nosso-primeiro-endpoint-248d4b8ecc9c
+
+  Salvar usuario e tokes no banco de dados
+    usar criptografia na senha
+    configurar banco de dados
+
+  google auth
+  configurar doc
+
+infra:
+  github
+  subir docker composer local
+  k8s
+  ci/cd
+  github ci
+  deploy na aws

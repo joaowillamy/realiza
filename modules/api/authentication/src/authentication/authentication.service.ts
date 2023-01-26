@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {UserService} from '@realiza/api/user'
-import { User } from '@realiza/shared/types';
+
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class AuthenticationService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<User | boolean> {
+  async validateUser(username: string, pass: string): Promise<any | boolean> {
     const user = await this.usersService.findOne(username);
     if (user && user.password === pass) {
       const { password, ...result } = user;

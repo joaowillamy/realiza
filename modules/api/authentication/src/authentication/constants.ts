@@ -1,3 +1,5 @@
+import { envs } from "@realiza/shared/utils";
+
 export const jwtConstants = {
-  secret: process.env.NX_JWT_SECRET,
+  secret: envs.jwtSecret,
 };
