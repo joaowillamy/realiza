@@ -6,15 +6,45 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import { CustomRepository } from '@realiza/api/infrastructure';
+import { baseQueryBuilder, CustomRepository } from '@realiza/api/infrastructure';
 
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRole } from './user-roles.enum';
 import { CredentialsDto } from './dto/credentials.dto';
+import { FindUsersQueryDto } from './dto/find-users-query.dto';
 
 @CustomRepository(User)
 export class UserRepository extends Repository<User> {
+
+  async findUsers(
+    { sort, limit = 100, page = 1, status = true, email, name, role }: FindUsersQueryDto,
+  ): Promise<{ users: User[]; total: number }> {
+
+    const query = this.createQueryBuilder('user');
+    query.where('user.status = :status', { status });
+
+    if (email) {
+      query.andWhere('user.email ILIKE :email', { email: `%${email}%` });
+    }
+
+    if (name) {
+      query.andWhere('user.name ILIKE :name', { name: `%${name}%` });
+    }
+
+    if (role) {
+      query.andWhere('user.role = :role', { role });
+    }
+
+    query.select(['user.name', 'user.email', 'user.role', 'user.status']);
+
+    baseQueryBuilder<User>(query, sort, page, limit)
+
+    const [users, total] = await query.getManyAndCount();
+
+    return { users, total };
+  }
+
   async createUser(
     createUserDto: CreateUserDto,
     role: UserRole,

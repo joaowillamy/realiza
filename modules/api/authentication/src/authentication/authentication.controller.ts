@@ -1,7 +1,8 @@
 import {
-  Controller, Post, UseGuards, Get, ValidationPipe, Body
+  Controller, Post, UseGuards, Get, ValidationPipe, Body, Param, Patch, ForbiddenException, Delete, Query
 } from '@nestjs/common';
-import { CreateUserDto, CredentialsDto, ReturnUserDto, User, UserRole, UserService } from '@realiza/api/user';
+import { CreateUserDto, CredentialsDto, FindUsersQueryDto, ReturnUserDto, UpdateUserDto, User, UserRole, UserService } from '@realiza/api/user';
+
 import { AuthenticationService } from './authentication.service';
 import { GetUser } from './decorator/get-user.decorator';
 import { Role } from './decorator/role.decorator';
@@ -50,6 +51,55 @@ export class AuthenticationController {
     return {
       user,
       message: 'Administrador cadastrado com sucesso',
+    };
+  }
+
+  @Get('/admin/users/:id')
+  @Role(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async findUserById(@Param('id') id): Promise<ReturnUserDto> {
+    const user = await this.usersService.findUserById(id);
+    return {
+      user,
+      message: 'Usuário encontrado',
+    };
+  }
+
+  @Patch('/admin/users/:id')
+  @Role(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async updateUser(
+    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
+    @GetUser() user: User,
+    @Param('id') id: string,
+  ) {
+    if (user.role != UserRole.ADMIN && user.id.toString() != id) {
+      throw new ForbiddenException(
+        'Você não tem autorização para acessar esse recurso',
+      );
+    } else {
+      return this.usersService.updateUser(updateUserDto, id);
+    }
+  }
+
+  @Delete('/admin/users/:id')
+  @Role(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async deleteUser(@Param('id') id: string) {
+    await this.usersService.deleteUser(id);
+    return {
+      message: 'Usuário removido com sucesso',
+    };
+  }
+
+  @Get('/admin/users/')
+  @Role(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async findUsers(@Query() query: FindUsersQueryDto) {
+    const found = await this.usersService.findUsers(query);
+    return {
+      found,
+      message: 'Usuários encontrados',
     };
   }
 }

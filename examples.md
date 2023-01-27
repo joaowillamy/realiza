@@ -28,6 +28,11 @@
   > {"access_token":"<token>"}
 
 
-authentication/admin/signup
+## authentication/admin/signup
   ### 400 Bad Request
   curl -X POST http://localhost:3333/api/authentication/admin/signup -d '{"email": "joao@gmail.com", "name": "", "password": "asdf", "passwordConfirmation": "asdf"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMjNkODQyLWE0ZTktNDFhYS1iMzM0LWM2M2UyYWY0YjBhOCIsImlhdCI6MTY3NDc3NTAxMiwiZXhwIjoxNjc0NzkzMDEyfQ.UWgOPOtUUF29g6lo_UcnQUkTdRURu7_gpE-lZwXB0Qo"
+
+
+## /authentication/admin/users
+
+curl http://localhost:3333/api/authentication/admin/users?page=1 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMjNkODQyLWE0ZTktNDFhYS1iMzM0LWM2M2UyYWY0YjBhOCIsImlhdCI6MTY3NDc5MDYwMiwiZXhwIjoxNjc0ODA4NjAyfQ.fKKHxLauCzA0ZAwmms_5IlJFKfJ52QPSZuiScBvvJe4"

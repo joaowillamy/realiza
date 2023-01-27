@@ -6,3 +6,5 @@ export { CreateUserDto } from './user/dto/create-user.dto';
 export { UserRole } from './user/user-roles.enum';
 export { CredentialsDto } from './user/dto/credentials.dto';
 export { ReturnUserDto } from './user/dto/return-user.dto'
+export { FindUsersQueryDto } from './user/dto/find-users-query.dto';
+export { UpdateUserDto } from './user/dto/update-user.dto';
