@@ -1,5 +1,41 @@
 # Realiza
 
+## Global Requere
+- node
+- yarn
+- nx
+
+## Technologies
+
+- Nestjs (backend)
+  - Mailer
+  - Logger Winston
+  - Doc generetor by swagger
+  - Https
+  - TypeOrm for database
+  - Authentication with Passport
+- Nextjs (frontend)
+  - React
+  - Storybook
+  - Styled component
+  - React hook form
+  - React query
+- Infrastructure
+  - NX - Monorepo
+  - Docker componse
+  - Typescript 
+  - Jest
+  - Linters
+- Cypress (e2e)
+  - Test end to end 
+
+## Initial settup:
+```
+yarn install
+yarn create-certs
+yarn nx server <project> // example: yarn nx server api
+```
+
 ## Grouping modules:
 #### backend modules
 ```
