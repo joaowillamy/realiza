@@ -11,4 +11,5 @@ export const backendEnvs = {
   port: process.env['PORT'],
   mailUser: process.env['MAIL_USER'],
   mailPass: process.env['MAIL_PASS'],
+  mailDevFromMyUser: process.env['MAIL_DEV_FROM_MY_USER'],
 }

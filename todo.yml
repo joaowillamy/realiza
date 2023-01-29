@@ -27,12 +27,25 @@ frontend:
  - sitemap
 
 Backend:
-  ler artigo:
-   - https://medium.com/@iago.maiasilva/construindo-uma-api-com-nestjs-postgresql-e-docker-parte-1-criando-nosso-primeiro-endpoint-248d4b8ecc9c
+  create a job with queue to send emails
 
-  google auth
-  refrash token
-  configurar doc
+  Google oauth2:
+https://medium.com/@flavtech/google-oauth2-authentication-with-nestjs-explained-ab585c53edec
+
+Refrash token:
+  back:
+    Deve verificar se o access token é valido
+    Deve ter uma rota para criar o refrash toke
+    Deve criar um comando no service auth para criar um novo refrash token e salvar na coluna do user refrash token
+
+  front:
+    Quando receber 401 do backend pois o access toke é invalido:
+      Buscar o novo access token e refrash token do backend
+      Refazer o retry da requisição logo após a request invalida com os novos tokens
+
+    Depois de 3 retry:
+      deslogar usuário
+
 
 Infra:
   subir docker composer local
@@ -40,3 +53,7 @@ Infra:
   ci/cd
   github ci
   deploy na aws
+
+Important to remember:
+artigo:
+  https://medium.com/@iago.maiasilva/construindo-uma-api-com-nestjs-postgresql-e-docker-parte-1-criando-nosso-primeiro-endpoint-248d4b8ecc9c
