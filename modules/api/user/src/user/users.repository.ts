@@ -36,7 +36,7 @@ export class UserRepository extends Repository<User> {
       query.andWhere('user.role = :role', { role });
     }
 
-    query.select(['user.name', 'user.email', 'user.role', 'user.status']);
+    query.select(['user.id', 'user.name', 'user.email', 'user.role', 'user.status']);
 
     baseQueryBuilder<User>(query, sort, page, limit)
 
@@ -88,6 +88,14 @@ export class UserRepository extends Repository<User> {
     } else {
       return null;
     }
+  }
+
+  async changePassword(id: string, password: string) {
+    const user = await this.findOne({ where: { id } });
+    user.salt = await bcrypt.genSalt();
+    user.password = await this.hashPassword(password, user.salt);
+    user.recoverToken = null;
+    await user.save();
   }
 
   private async hashPassword(password: string, salt: string): Promise<string> {

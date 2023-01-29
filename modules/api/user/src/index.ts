@@ -8,3 +8,4 @@ export { CredentialsDto } from './user/dto/credentials.dto';
 export { ReturnUserDto } from './user/dto/return-user.dto'
 export { FindUsersQueryDto } from './user/dto/find-users-query.dto';
 export { UpdateUserDto } from './user/dto/update-user.dto';
+export { ChangePasswordDto } from './user/dto/change-password.dto';

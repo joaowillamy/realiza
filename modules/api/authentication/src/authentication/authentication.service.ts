@@ -1,10 +1,12 @@
-import { Injectable, NotFoundException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
-import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto} from '@realiza/api/user'
-
+import { Inject, Injectable, NotFoundException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
+import { randomBytes } from 'crypto';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
+
 import { backendEnvs } from '@realiza/shared/utils';
+import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto, ChangePasswordDto} from '@realiza/api/user'
+import { Logger } from 'winston';
 
 @Injectable()
 export class AuthenticationService {
@@ -13,6 +15,7 @@ export class AuthenticationService {
     private userRepository: UserRepository,
     private jwtService: JwtService,
     private mailerService: MailerService,
+    @Inject('winston') private logger: Logger
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
@@ -25,11 +28,11 @@ export class AuthenticationService {
       );
 
       const mail = {
-        to: backendEnvs.isDevelopment ? backendEnvs.mailDevFromMyUser : user.email,
+        to: this.getUserEmail(user.email),
         subject: 'Email de confirmação',
         template: 'email-confirmation',
         context: {
-          name: user.name?.length ? user.name.split(" ")[0] : '',
+          name: this.getUserName(user.name),
           token: user.confirmationToken,
         },
       };
@@ -60,5 +63,67 @@ export class AuthenticationService {
       { confirmationToken: null },
     );
     if (result.affected === 0) throw new NotFoundException('Token inválido');
+  }
+
+  async sendRecoverPasswordEmail(email: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    if (!user)
+      throw new NotFoundException('Não há usuário cadastrado com esse email.');
+
+    user.recoverToken = randomBytes(32).toString('hex');
+    await user.save();
+
+    const mail = {
+      to: this.getUserEmail(user.email),
+      subject: 'Recuperação de senha',
+      template: 'recover-password',
+      context: {
+        name: this.getUserName(user.name),
+        token: user.recoverToken,
+      },
+    };
+    await this.mailerService.sendMail(mail);
+  }
+
+  async changePassword(
+    id: string,
+    changePasswordDto: ChangePasswordDto,
+  ): Promise<void> {
+    const { password, passwordConfirmation } = changePasswordDto;
+
+    if (password != passwordConfirmation)
+      throw new UnprocessableEntityException('As senhas não conferem');
+
+    await this.userRepository.changePassword(id, password);
+  }
+
+  async resetPassword(
+    recoverToken: string,
+    changePasswordDto: ChangePasswordDto,
+  ): Promise<void> {
+    const user = await this.userRepository.findOne(
+      {
+        where: { recoverToken },
+        select: ['id'],
+      },
+    );
+
+    if (!user) throw new NotFoundException('Token inválido.');
+
+    try {
+      await this.changePassword(user.id.toString(), changePasswordDto);
+    } catch (error) {
+      this.logger.error(error)
+      throw error;
+    }
+  }
+
+  private getUserName(name: string): string {
+    return name?.length ? name.split(" ")[0] : ''
+  }
+
+  private getUserEmail(email): string {
+    return backendEnvs.isDevelopment ? backendEnvs.mailDevFromMyUser : email
   }
 }

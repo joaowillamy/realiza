@@ -1,8 +1,8 @@
 import {
   Controller, Post, UseGuards, Get, ValidationPipe, Body, Param, Patch, ForbiddenException, Delete, Query
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
-import { CreateUserDto, CredentialsDto, FindUsersQueryDto, ReturnUserDto, UpdateUserDto, User, UserRole, UserService } from '@realiza/api/user';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
+import { ChangePasswordDto, CreateUserDto, CredentialsDto, FindUsersQueryDto, ReturnUserDto, UpdateUserDto, User, UserRole, UserService } from '@realiza/api/user';
 
 import { AuthenticationService } from './authentication.service';
 import { GetUser } from './decorator/get-user.decorator';
@@ -60,6 +60,33 @@ export class AuthenticationController {
       message: 'Email confirmado',
     };
   }
+
+
+  @ApiTags('Auth')
+  @Post('/send-recover-email')
+  @ApiBody({ schema: { example: { email: 'will@gmail.com' }}})
+  async sendRecoverPasswordEmail(
+    @Body('email') email: string,
+  ): Promise<{ message: string }> {
+    await this.authenticationService.sendRecoverPasswordEmail(email);
+    return {
+      message: 'Foi enviado um email com instruções para resetar sua senha',
+    };
+  }
+
+  @ApiTags('Auth')
+  @Patch('/reset-password/:token')
+  async resetPassword(
+    @Param('token') token: string,
+    @Body(ValidationPipe) changePasswordDto: ChangePasswordDto,
+  ): Promise<{ message: string }> {
+    await this.authenticationService.resetPassword(token, changePasswordDto);
+
+    return {
+      message: 'Senha alterada com sucesso',
+    };
+  }
+
 
   @ApiBearerAuth('JWT-auth')
   @ApiTags('Auth admin')
