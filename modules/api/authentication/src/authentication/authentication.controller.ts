@@ -30,8 +30,6 @@ export class AuthenticationController {
   async signIn(
     @Body(ValidationPipe) credentiaslsDto: CredentialsDto,
   ): Promise<{ token: string }> {
-    console.log({credentiaslsDto});
-
     return await this.authenticationService.signIn(credentiaslsDto);
   }
 

@@ -30,15 +30,11 @@ Backend:
   ler artigo:
    - https://medium.com/@iago.maiasilva/construindo-uma-api-com-nestjs-postgresql-e-docker-parte-1-criando-nosso-primeiro-endpoint-248d4b8ecc9c
 
-  Salvar usuario e tokes no banco de dados
-    usar criptografia na senha
-    configurar banco de dados
-
   google auth
+  refrash token
   configurar doc
 
-infra:
-  github
+Infra:
   subir docker composer local
   k8s
   ci/cd

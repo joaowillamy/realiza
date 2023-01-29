@@ -3,6 +3,7 @@ import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto} from '@re
 
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthenticationService {
@@ -10,13 +11,29 @@ export class AuthenticationService {
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
     private jwtService: JwtService,
+    private mailerService: MailerService,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
     if (createUserDto.password != createUserDto.passwordConfirmation) {
       throw new UnprocessableEntityException('As senhas não conferem');
     } else {
-      return await this.userRepository.createUser(createUserDto, UserRole.USER);
+      const user = await this.userRepository.createUser(
+        createUserDto,
+        UserRole.USER,
+      );
+
+      const mail = {
+        to: user.email,
+        subject: 'Email de confirmação',
+        template: 'email-confirmation',
+        context: {
+          token: user.confirmationToken,
+        },
+      };
+
+      await this.mailerService.sendMail(mail);
+      return user as User;
     }
   }
 
