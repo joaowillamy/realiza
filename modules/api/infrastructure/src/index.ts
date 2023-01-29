@@ -5,4 +5,3 @@ export * from './typeorm/typeorm-ex.decorator'
 export { BaseQueryParametersDto } from './query/base-query-parameters.dto';
 export { baseQueryBuilder } from './query/base-query-builder';
 export { winstonConfig } from './logger/winston.config';
-export { mailerConfig } from './mailer/mailer.config'
