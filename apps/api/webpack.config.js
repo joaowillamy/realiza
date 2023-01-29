@@ -1,12 +1,15 @@
 const { composePlugins, withNx } = require('@nrwl/webpack');
 const path = require("path");
 const HandlebarsPlugin = require("handlebars-webpack-plugin");
+const params = require('./src/app/mailer/templates/params.json')
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
+
   // Update the webpack config as needed here.
   // e.g. `config.plugins.push(new MyPlugin())`
   config.plugins.push(new HandlebarsPlugin({
+    data: params,
     // path to hbs entry file(s). Also supports nested directories if write path.join(process.cwd(), "app", "src", "**", "*.hbs"),
     entry: path.join(process.cwd(), "apps", "api", "src", "app", "mailer", "templates", "*.hbs"),
     // output path and filename(s). This should lie within the webpacks output-folder

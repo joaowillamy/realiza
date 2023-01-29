@@ -17,10 +17,11 @@ export class AuthenticationController {
     private authenticationService: AuthenticationService,
   ) {}
 
-  @ApiTags('auth')
+  @ApiTags('Auth')
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, description: 'Created.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 409, description: 'Conflict.' })
   @Post('/signup')
   async signUp(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
@@ -31,7 +32,7 @@ export class AuthenticationController {
     };
   }
 
-  @ApiTags('auth')
+  @ApiTags('Auth')
   @Post('/signin')
   @ApiResponse({ status: 200, description: 'sign' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -41,16 +42,16 @@ export class AuthenticationController {
     return await this.authenticationService.signIn(credentiaslsDto);
   }
 
-  @ApiBearerAuth('JWT-auth') // This is the one that needs to match the name in main.ts
-  @ApiTags('auth')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth')
   @Get('/me')
   @UseGuards(JwtAuthGuard)
   getMe(@GetUser() user: User): User {
     return user;
   }
 
-  @ApiBearerAuth()
-  @ApiTags('auth')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth')
   @Patch(':token')
   async confirmEmail(@Param('token') token: string) {
     const user = await this.authenticationService.confirmEmail(token);
@@ -60,8 +61,8 @@ export class AuthenticationController {
     };
   }
 
-  @ApiBearerAuth()
-  @ApiTags('auth admin')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth admin')
   @Post('/admin/signup')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -75,8 +76,8 @@ export class AuthenticationController {
     };
   }
 
-  @ApiBearerAuth()
-  @ApiTags('auth admin')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth admin')
   @Get('/admin/users/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -88,8 +89,8 @@ export class AuthenticationController {
     };
   }
 
-  @ApiBearerAuth()
-  @ApiTags('auth admin')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth admin')
   @Patch('/admin/users/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -107,8 +108,8 @@ export class AuthenticationController {
     }
   }
 
-  @ApiBearerAuth()
-  @ApiTags('auth admin')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth admin')
   @Delete('/admin/users/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -119,8 +120,8 @@ export class AuthenticationController {
     };
   }
 
-  @ApiBearerAuth()
-  @ApiTags('auth admin')
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth admin')
   @Get('/admin/users/')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)

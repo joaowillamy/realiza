@@ -4,6 +4,7 @@ import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto} from '@re
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
+import { backendEnvs } from '@realiza/shared/utils';
 
 @Injectable()
 export class AuthenticationService {
@@ -24,7 +25,7 @@ export class AuthenticationService {
       );
 
       const mail = {
-        to: user.email,
+        to: backendEnvs.isDevelopment ? backendEnvs.mailDevFromMyUser : user.email,
         subject: 'Email de confirmação',
         template: 'email-confirmation',
         context: {

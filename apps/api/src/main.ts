@@ -8,6 +8,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { winstonConfig } from '@realiza/api/infrastructure';
 
 import { AppModule } from './app/app.module';
+import { backendEnvs } from '@realiza/shared/utils';
 
 async function bootstrap() {
   const logger = WinstonModule.createLogger(winstonConfig);
@@ -21,7 +22,6 @@ async function bootstrap() {
   .setTitle('Realiza')
   .setDescription('The realiza API description')
   .setVersion('1.0')
-  .addTag('auth')
   .addBearerAuth(
     {
       type: 'http',
@@ -54,11 +54,15 @@ async function bootstrap() {
   await app.listen(port);
 
   logger.log(
+    `🎲 SGBD DataBase is running on: http://localhost:8080/`
+    );
+  logger.log(
     `📚 Documentation is running on: https://localhost:${port}/${docPrefix}`
   )
   logger.log(
     `🚀 Application is running on: https://localhost:${port}/${globalPrefix}`
-  );
+    );
+  logger.log(`isDevelopment: ${backendEnvs.isDevelopment}`);
 }
 
 bootstrap();
