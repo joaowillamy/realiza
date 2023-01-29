@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
 import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto} from '@realiza/api/user'
 
 import { JwtService } from '@nestjs/jwt';
@@ -28,6 +28,7 @@ export class AuthenticationService {
         subject: 'Email de confirmação',
         template: 'email-confirmation',
         context: {
+          name: user.name?.length ? user.name.split(" ")[0] : '',
           token: user.confirmationToken,
         },
       };
@@ -50,5 +51,13 @@ export class AuthenticationService {
     const token = await this.jwtService.sign(jwtPayload);
 
     return { token };
+  }
+
+  async confirmEmail(confirmationToken: string): Promise<void> {
+    const result = await this.userRepository.update(
+      { confirmationToken },
+      { confirmationToken: null },
+    );
+    if (result.affected === 0) throw new NotFoundException('Token inválido');
   }
 }

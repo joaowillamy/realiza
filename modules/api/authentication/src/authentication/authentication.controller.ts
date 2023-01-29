@@ -1,6 +1,7 @@
 import {
   Controller, Post, UseGuards, Get, ValidationPipe, Body, Param, Patch, ForbiddenException, Delete, Query
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiParam } from '@nestjs/swagger';
 import { CreateUserDto, CredentialsDto, FindUsersQueryDto, ReturnUserDto, UpdateUserDto, User, UserRole, UserService } from '@realiza/api/user';
 
 import { AuthenticationService } from './authentication.service';
@@ -16,6 +17,10 @@ export class AuthenticationController {
     private authenticationService: AuthenticationService,
   ) {}
 
+  @ApiTags('auth')
+  @ApiOperation({ summary: 'Create user' })
+  @ApiResponse({ status: 201, description: 'Created.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @Post('/signup')
   async signUp(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
@@ -26,19 +31,37 @@ export class AuthenticationController {
     };
   }
 
+  @ApiTags('auth')
   @Post('/signin')
+  @ApiResponse({ status: 200, description: 'sign' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async signIn(
     @Body(ValidationPipe) credentiaslsDto: CredentialsDto,
   ): Promise<{ token: string }> {
     return await this.authenticationService.signIn(credentiaslsDto);
   }
 
+  @ApiBearerAuth('JWT-auth') // This is the one that needs to match the name in main.ts
+  @ApiTags('auth')
   @Get('/me')
   @UseGuards(JwtAuthGuard)
   getMe(@GetUser() user: User): User {
     return user;
   }
 
+  @ApiBearerAuth()
+  @ApiTags('auth')
+  @Patch(':token')
+  async confirmEmail(@Param('token') token: string) {
+    const user = await this.authenticationService.confirmEmail(token);
+    return {
+      user,
+      message: 'Email confirmado',
+    };
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('auth admin')
   @Post('/admin/signup')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -52,10 +75,12 @@ export class AuthenticationController {
     };
   }
 
+  @ApiBearerAuth()
+  @ApiTags('auth admin')
   @Get('/admin/users/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async findUserById(@Param('id') id): Promise<ReturnUserDto> {
+  async findUserById(@Param('id') id: string): Promise<ReturnUserDto> {
     const user = await this.usersService.findUserById(id);
     return {
       user,
@@ -63,6 +88,8 @@ export class AuthenticationController {
     };
   }
 
+  @ApiBearerAuth()
+  @ApiTags('auth admin')
   @Patch('/admin/users/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -80,6 +107,8 @@ export class AuthenticationController {
     }
   }
 
+  @ApiBearerAuth()
+  @ApiTags('auth admin')
   @Delete('/admin/users/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -90,6 +119,8 @@ export class AuthenticationController {
     };
   }
 
+  @ApiBearerAuth()
+  @ApiTags('auth admin')
   @Get('/admin/users/')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
