@@ -1,5 +1,5 @@
 import {
-  Controller, Post, UseGuards, Get, ValidationPipe, Body, Param, Patch, ForbiddenException, Delete, Query
+  Controller, Post, UseGuards, Get, ValidationPipe, Body, Param, Patch, ForbiddenException, Delete, Query, UnauthorizedException
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { ChangePasswordDto, CreateUserDto, CredentialsDto, FindUsersQueryDto, ReturnUserDto, UpdateUserDto, User, UserRole, UserService } from '@realiza/api/user';
@@ -87,6 +87,24 @@ export class AuthenticationController {
     };
   }
 
+  @ApiTags('Auth')
+  @Patch(':id/change-password')
+  @UseGuards(JwtAuthGuard)
+  async changePassword(
+    @Param('id') id: string,
+    @Body(ValidationPipe) changePasswordDto: ChangePasswordDto,
+    @GetUser() user: User,
+  ) {
+    if (user.role !== UserRole.ADMIN && user.id.toString() !== id)
+      throw new UnauthorizedException(
+        'Você não tem permissão para realizar esta operação',
+      );
+
+    await this.authenticationService.changePassword(id, changePasswordDto);
+    return {
+      message: 'Senha alterada',
+    };
+  }
 
   @ApiBearerAuth('JWT-auth')
   @ApiTags('Auth admin')
