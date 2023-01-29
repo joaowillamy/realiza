@@ -6,9 +6,10 @@ import { MailerModule } from '@nestjs-modules/mailer';
 
 import { UserModule } from '@realiza/api/user';
 import {AuthenticationModule} from '@realiza/api/authentication'
-import { LoggerInterceptor, mailerConfig, winstonConfig } from '@realiza/api/infrastructure';
+import { LoggerInterceptor, winstonConfig } from '@realiza/api/infrastructure';
 
 import { typeOrmConfig } from './typeorm.config';
+import { mailerConfig } from './mailer/mailer.config';
 
 @Module({
   imports: [

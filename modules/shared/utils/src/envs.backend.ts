@@ -8,4 +8,7 @@ export const backendEnvs = {
   pgUsername: process.env["NX_PG_USERNAME"],
   pgPassword: process.env["NX_PG_PASSWORD"],
   pgDatabase: process.env["NX_PG_DATABASE"],
+  port: process.env['PORT'],
+  mailUser: process.env['MAIL_USER'],
+  mailPass: process.env['MAIL_PASS'],
 }

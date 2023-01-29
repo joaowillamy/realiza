@@ -22,17 +22,18 @@ export class AuthenticationService {
         createUserDto,
         UserRole.USER,
       );
+
       const mail = {
         to: user.email,
-        from: 'noreply@application.com',
         subject: 'Email de confirmação',
         template: 'email-confirmation',
         context: {
           token: user.confirmationToken,
         },
       };
+
       await this.mailerService.sendMail(mail);
-      return user;
+      return user as User;
     }
   }
 
