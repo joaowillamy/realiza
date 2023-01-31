@@ -6,6 +6,27 @@ frontend:
    - form
    - button
 
+create a wraper for form components:
+  apps/consumer-frontend
+    pages/
+      /public/home
+      /private/home
+
+  /frontend/share/ui-form
+    -> forms with validatoins
+  /frontend/share/ui
+    -> button
+
+  /frontend
+    /auth-feature
+      /consumer-components
+      /consumer-pages
+    /auth-data
+      /service
+      /hooks
+      /context
+
+
 # feature:
   pagina de login
   pagina de criar usuário
@@ -27,14 +48,15 @@ frontend:
  - sitemap
 
 Backend:
-  create a job with queue to send emails
+  Rename files
+  Create a job with queue to send emails
+  Finalizar o docker compose com o artigo de deploy
 
   Google oauth2:
 https://medium.com/@flavtech/google-oauth2-authentication-with-nestjs-explained-ab585c53edec
 
 Refrash token:
   back:
-    Deve verificar se o access token é valido
     Deve ter uma rota para criar o refrash toke
     Deve criar um comando no service auth para criar um novo refrash token e salvar na coluna do user refrash token
 
@@ -48,11 +70,13 @@ Refrash token:
 
 
 Infra:
+  linters
   subir docker composer local
   k8s
   ci/cd
   github ci
   deploy na aws
+  atualizar node e nx
 
 Important to remember:
 artigo:

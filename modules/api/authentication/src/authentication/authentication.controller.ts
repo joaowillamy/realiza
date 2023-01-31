@@ -52,6 +52,24 @@ export class AuthenticationController {
 
   @ApiBearerAuth('JWT-auth')
   @ApiTags('Auth')
+  @Patch('/me/:id')
+  @UseGuards(JwtAuthGuard)
+  async updateUser(
+    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
+    @GetUser() user: User,
+    @Param('id') id: string,
+  ) {
+    if (user.role != UserRole.ADMIN && user.id.toString() != id) {
+      throw new ForbiddenException(
+        'Você não tem autorização para acessar esse recurso',
+      );
+    } else {
+      return this.usersService.updateUser(updateUserDto, id);
+    }
+  }
+
+  @ApiBearerAuth('JWT-auth')
+  @ApiTags('Auth')
   @Patch(':token')
   async confirmEmail(@Param('token') token: string) {
     const user = await this.authenticationService.confirmEmail(token);
@@ -132,25 +150,6 @@ export class AuthenticationController {
       user,
       message: 'Usuário encontrado',
     };
-  }
-
-  @ApiBearerAuth('JWT-auth')
-  @ApiTags('Auth admin')
-  @Patch('/admin/users/:id')
-  @Role(UserRole.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  async updateUser(
-    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
-    @GetUser() user: User,
-    @Param('id') id: string,
-  ) {
-    if (user.role != UserRole.ADMIN && user.id.toString() != id) {
-      throw new ForbiddenException(
-        'Você não tem autorização para acessar esse recurso',
-      );
-    } else {
-      return this.usersService.updateUser(updateUserDto, id);
-    }
   }
 
   @ApiBearerAuth('JWT-auth')

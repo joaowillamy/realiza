@@ -1,31 +1,22 @@
-import styled from 'styled-components';
+import Link from "next/link";
 
-const StyledPage = styled.div`
-  .page {
-  }
-`;
+export const Menu = () => {
+  return <>
+    {" "}<Link href={'/'}>home</Link>{" "}
+    <Link href={'/public/blog'}>blog</Link>{" "}
+    <Link href={'/auth/sign-in'}>sign in</Link>{" "}
+    <Link href={'/auth/sign-up'}>sign up</Link>{" "}
+  </>
+}
 
-export function Index({ data }) {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.styled-components file.
-   */
+export function Index() {
+
   return (
-    <StyledPage>
-      Frontend using:
-      {` ` + data.message}
-    </StyledPage>
+    <div>
+      Home
+      <Menu />
+    </div>
   );
 }
 
 export default Index;
-
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`http://localhost:3333/api`)
-  const data = await res.json()
-
-  // Pass data to the page via props
-  return { props: { data } }
-}
