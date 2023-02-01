@@ -1,11 +1,3 @@
-frontend:
-# configure must have
- - chakra ui
- - React Hook Form
- - ui module configured
-   - form
-   - button
-
 create a wraper for form components:
 
 # feature:

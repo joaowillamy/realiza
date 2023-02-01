@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from '@realiza/frontend/shared/ui'
 
 export const Menu = () => {
   return <>
@@ -14,6 +15,7 @@ export function Index() {
   return (
     <div>
       Home
+      <Button />
       <Menu />
     </div>
   );

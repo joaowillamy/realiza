@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Theme } from '@realiza/frontend/shared/ui'
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,7 +9,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Welcome to consumer-frontend!</title>
       </Head>
       <main>
-        <Component {...pageProps} />
+        <Theme>
+          <Component {...pageProps} />
+        </Theme>
       </main>
     </>
   );
