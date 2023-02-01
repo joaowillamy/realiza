@@ -22,10 +22,6 @@
         "modules/api/infrastructure/src/index.ts"
       ],
       "@realiza/api/user": ["modules/api/user/src/index.ts"],
-      "@realiza/frontend/authentication": [
-        "modules/frontend/authentication/src/index.ts"
-      ],
-      "@realiza/shared/types": ["modules/shared/types/src/index.ts"],
       "@realiza/shared/utils": ["modules/shared/utils/src/index.ts"]
     }
   },

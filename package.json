@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "create-certs": "node scripts/create-certs.js"
+    "create-certs": "node scripts/create-certs.js",
+    "serve:all:dev": "nx run-many --target=serve --projects=api,consumer-frontend"
   },
   "private": true,
   "dependencies": {
