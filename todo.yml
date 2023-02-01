@@ -7,25 +7,6 @@ frontend:
    - button
 
 create a wraper for form components:
-  apps/consumer-frontend
-    pages/
-      /public/home
-      /private/home
-
-  /frontend/share/ui-form
-    -> forms with validatoins
-  /frontend/share/ui
-    -> button
-
-  /frontend
-    /auth-feature
-      /consumer-components
-      /consumer-pages
-    /auth-data
-      /service
-      /hooks
-      /context
-
 
 # feature:
   pagina de login
