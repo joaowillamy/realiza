@@ -3,9 +3,14 @@ Frontend:
     password
 
   /forms
-    verificar comportamento de validação
     criar validadores defaults de senhas por exemplo
     regex
+
+  /sign-in-form
+  /sign-up-form
+
+  /consumer-sign-up
+  /consumer-sign-in
 
   /auth-login
     /service

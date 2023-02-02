@@ -9,7 +9,7 @@ export type ThemeProps = {
 const theme = extendBaseTheme({
   ...chakraTheme,
   components: { ...chakraTheme.components },
-})
+}) as typeof chakraTheme
 
 export const Theme: React.FC<ThemeProps> = ({children}) => {
   return (

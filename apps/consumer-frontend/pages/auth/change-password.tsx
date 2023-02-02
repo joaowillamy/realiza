@@ -7,20 +7,37 @@ import {
 } from '@chakra-ui/react'
 import * as yup from "yup";
 import { Input } from "@realiza/frontend/shared/ui-form";
+import { FormConfig } from "@realiza/frontend/shared/form";
 
 type FormData = {
   name: string;
 };
 
+const formConfig: FormConfig<FormData> = {
+  name: {
+    validate: yup.string().required().min(4),
+    getInputConfig: ({ formState, register }) => ({
+      id:'name',
+      placeholder:'name',
+      configs: {
+        label: 'Nome',
+        isInvalid: formState.touchedFields.name && Boolean(formState.errors.name),
+        error: formState.touchedFields.name && formState.errors.name?.message
+      },
+      register: () => register('name'),
+    })
+  }
+}
+
 const schema = yup.object({
-  name: yup.string().required().min(4),
+  name: formConfig.name.validate,
 }).required();
 
 export function ChangePassword() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting, touchedFields },
+    formState,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -40,18 +57,9 @@ export function ChangePassword() {
       <Menu />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            id='name'
-            placeholder='name'
-            configs={{
-              label: 'Nome',
-              isInvalid: touchedFields.name && Boolean(errors.name),
-              error: touchedFields.name && errors.name?.message
-            }}
-            register={() => register('name')}
-          />
+        <Input {...formConfig.name.getInputConfig({formState, register})} />
 
-        <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
+        <Button mt={4} colorScheme='teal' isLoading={formState.isSubmitting} type='submit'>
           Submit
         </Button>
       </form>
