@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from '@realiza/frontend/shared/ui'
+import { configYupTranslation } from "@realiza/frontend/shared/form";
 
 export const Menu = () => {
   return <>
@@ -9,6 +10,8 @@ export const Menu = () => {
     <Link href={'/auth/sign-up'}>sign up</Link>{" "}
   </>
 }
+
+configYupTranslation()
 
 export function Index() {
 

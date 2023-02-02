@@ -1,1 +1,1 @@
-export * from './lib/frontend-shared--form';
+export { configYupTranslation } from './validations/yup.locale.pt-br';

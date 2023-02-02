@@ -3,16 +3,10 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Input,
   Button,
-  Text
 } from '@chakra-ui/react'
 import * as yup from "yup";
-
-const Error = ({children}) => <Text>{children}</Text>
+import { Input } from "@realiza/frontend/shared/ui-form";
 
 type FormData = {
   name: string;
@@ -26,9 +20,10 @@ export function ChangePassword() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, touchedFields },
   } = useForm<FormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    mode: 'onChange',
   })
 
   function onSubmit(values) {
@@ -41,21 +36,21 @@ export function ChangePassword() {
   }
   return (
     <div>
-      ChangePassword
+
       <Menu />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={Boolean(errors.name)}>
-          <FormLabel htmlFor='name'>First name</FormLabel>
           <Input
             id='name'
             placeholder='name'
-            {...register('name')}
+            configs={{
+              label: 'Nome',
+              isInvalid: touchedFields.name && Boolean(errors.name),
+              error: touchedFields.name && errors.name?.message
+            }}
+            register={() => register('name')}
           />
-          <FormErrorMessage>
-            {errors.name ? <Error>{errors.name.message}</Error> : null}
-          </FormErrorMessage>
-        </FormControl>
+
         <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
           Submit
         </Button>

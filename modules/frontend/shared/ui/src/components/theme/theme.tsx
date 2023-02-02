@@ -1,17 +1,14 @@
 import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react'
-import chakraTheme from '@chakra-ui/theme'
 import React from 'react';
+import chakraTheme from '@chakra-ui/theme'
 
 export type ThemeProps = {
   children: React.ReactNode;
 }
 
-const { Button } = chakraTheme.components
-
 const theme = extendBaseTheme({
-  components: {
-    Button,
-  },
+  ...chakraTheme,
+  components: { ...chakraTheme.components },
 })
 
 export const Theme: React.FC<ThemeProps> = ({children}) => {

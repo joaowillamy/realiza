@@ -1,4 +1,18 @@
-create a wraper for form components:
+Frontend:
+  /form-ui
+    password
+
+  /forms
+    verificar comportamento de validação
+    criar validadores defaults de senhas por exemplo
+    regex
+
+  /auth-login
+    /service
+    /hooks
+      react query
+      adicionando cookies
+      middleare
 
 # feature:
   pagina de login
@@ -10,6 +24,8 @@ create a wraper for form components:
   esqueceu a senha -> digite seu email
   recuperar senha ->  confirme senha
 
+  configurar o actions
+  config react query
   google auth
 
   estudar sobre:

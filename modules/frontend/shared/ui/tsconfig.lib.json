@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.json",
+  "declaration": true,
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
     "types": [
@@ -22,6 +23,7 @@
     "src/**/*.test.jsx"
   ],
   "include": [
+    "./emotion.d.ts",
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",

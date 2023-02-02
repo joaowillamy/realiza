@@ -10,6 +10,8 @@
     "../../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
     "../../../../node_modules/@nrwl/next/typings/image.d.ts"
   ],
+  "composite": true,
+  "declaration": true,
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
@@ -22,6 +24,7 @@
     "src/**/*.test.jsx"
   ],
   "include": [
+    "./emotion.d.ts",
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",

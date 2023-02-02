@@ -1,1 +1,2 @@
-export * from './lib/frontend-shared--ui-form';
+export { CustomForm } from "./components/custom-form/custom-form";
+export * from './components/input/input'
