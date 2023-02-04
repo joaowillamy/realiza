@@ -4,8 +4,10 @@
     "outDir": "../../../../dist/out-tsc",
     "types": [
       "node"
-    ]
+    ],
+    "composite": true
   },
+  "composite": true,
   "files": [
     "../../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
     "../../../../node_modules/@nrwl/next/typings/image.d.ts"

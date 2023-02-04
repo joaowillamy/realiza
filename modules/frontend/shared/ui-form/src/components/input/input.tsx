@@ -5,8 +5,8 @@ import * as S from './styled'
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 export interface InputProps extends InputPropsChakra  {
-  configs?: InputBaseProps;
-  register: () => UseFormRegisterReturn;
+  readonly configs?: InputBaseProps;
+  readonly register: () => UseFormRegisterReturn;
 }
 
 export function Input({id, configs, register, ...inputProps  }: InputProps) {
@@ -14,8 +14,9 @@ export function Input({id, configs, register, ...inputProps  }: InputProps) {
   return (
     <InputBase id={id} {...configs}>
       <S.Input
-      {...inputProps}
-      {...register()}
+        {...inputProps}
+        {...register()}
+        textIndent={configs?.leftElement ? '20px' : ''}
       />
     </InputBase>
 

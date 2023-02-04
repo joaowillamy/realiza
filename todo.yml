@@ -1,10 +1,5 @@
 Frontend:
-  /form-ui
-    password
-
-  /forms
-    criar validadores defaults de senhas por exemplo
-    regex
+  criar wrapper auth - modules/frontend/auth/feature/src
 
   /sign-in-form
   /sign-up-form

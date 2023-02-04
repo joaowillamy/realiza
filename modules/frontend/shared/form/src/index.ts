@@ -1,2 +1,3 @@
-export { configYupTranslation } from './validations/yup.locale.pt-br';
-export * from './types/input'
+export * from './validations/yup.locale.pt-br';
+export * from './hooks/useInput'
+export * from './validations/defaultUserForm'
