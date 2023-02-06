@@ -23,10 +23,11 @@ export function Password({id, configs, register, ...passwordProps  }: PasswordPr
       leftElement={<Icon as={TiLockClosedOutline} color="gray.500" />}
       rightElement={
         <Button
+          tabIndex={-1}
           h='1.75rem'
           size='sm'
           color="gray.500"
-          variant='solid'
+          variant='ghost'
           onClick={handleClick}>
           {show ? <Icon as={TiLockClosedOutline} /> : <Icon as={TiLockOpenOutline} />}
         </Button>

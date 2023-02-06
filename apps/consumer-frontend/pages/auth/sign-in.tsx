@@ -1,13 +1,14 @@
-import { Menu } from "..";
+import { SignIn } from "@realiza/frontend/auth/feature";
 
-export function SignIn() {
+type SignInPageProps = Record<string, never>
+
+export function SignInPage(props: SignInPageProps) {
 
   return (
     <div>
-      SignIn
-      <Menu />
+      <SignIn title="Realiza" describe="Entre na sua conta!" />
     </div>
   );
 }
 
-export default SignIn;
+export default SignInPage;

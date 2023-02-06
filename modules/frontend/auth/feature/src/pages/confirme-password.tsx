@@ -9,49 +9,46 @@ import {WrapperAuth} from '../components/WrapperAuth/wrapperAuth'
 import WrapperScreen from '../components/WrapperScreen/WrapperScreen';
 
 interface Form {
-  email: string;
+  password: string;
+  passwordConfirmation: string;
 };
 
 const userForm = defaultUserForm<Form>()
 
 const formConfig: FormConfig<Form> = {
-  email: userForm.email("email"),
+  password: userForm.password("password"),
+  passwordConfirmation: userForm.passwordConfirmation("passwordConfirmation"),
 }
-interface ChangePasswordProps {
+interface ConfirmePasswordProps {
   submitHandlerOnValid?: SubmitHandler<Form>;
   SubmitErrorHandlerOnInvalid?: SubmitErrorHandler<Form>;
   title: string;
   describe: string;
 }
 
-export function ChangePassword({ title, describe, submitHandlerOnValid = onSubmitDevTest, SubmitErrorHandlerOnInvalid }: ChangePasswordProps) {
+export function ConfirmePassword({ title, describe, submitHandlerOnValid = onSubmitDevTest, SubmitErrorHandlerOnInvalid }: ConfirmePasswordProps) {
   const form = useForm<Form>(getUseFormConfig(formConfig))
   const inputs = useGetInputs<Form>(form, formConfig)
   const { handleSubmit, formState } = form;
 
   return (
     <WrapperScreen>
-      <WrapperAuth title={title}
+      <WrapperAuth
+        title={title}
         describe={describe}
         onSubmit={handleSubmit(submitHandlerOnValid, SubmitErrorHandlerOnInvalid)}
         subDescribe={<Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>}
-        >
-        <Password {...inputs.email()} />
+      >
+        <Password {...inputs.password()} />
+        <Password {...inputs.passwordConfirmation()} />
 
         <Button mt={4} colorScheme='twitter' isLoading={formState.isSubmitting} type='submit'>
           Enviar
         </Button>
-        <Flex mt={2} flexDirection={'column'} align={'center'}>
-          <LinkBox as={NextLink} href={"/auth/sign-in"}>
-            <Button tabIndex={-1} color='twitter.400' variant="unstyled">
-              Voltar
-            </Button>
-          </LinkBox>
-        </Flex>
       </WrapperAuth>
     </WrapperScreen>
   );
 }
 
-export default ChangePassword;
+export default ConfirmePassword;
 

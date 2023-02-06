@@ -11,7 +11,7 @@ const StyledButton = styled(ChakraButton)`
 export function Button(props: ButtonProps) {
   return (
     <StyledButton>
-      <h1>Welcome to Button!</h1>
+      Welcome to Button!
     </StyledButton>
   );
 }

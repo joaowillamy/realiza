@@ -1,13 +1,14 @@
-import { Menu } from "..";
+import { SignUp } from "@realiza/frontend/auth/feature";
 
-export function SignUp() {
+type SignUpPageProps = Record<string, never>
+
+export function SignUpPage(props: SignUpPageProps) {
 
   return (
     <div>
-      sing up
-      <Menu />
+      <SignUp title="Realiza" describe="Crie a sua conta, é Grátis!"/>
     </div>
   );
 }
 
-export default SignUp;
+export default SignUpPage;
