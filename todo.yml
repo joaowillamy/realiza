@@ -1,10 +1,18 @@
-frontend:
-# configure must have
- - chakra ui
- - React Hook Form
- - ui module configured
-   - form
-   - button
+Frontend:
+  criar wrapper auth - modules/frontend/auth/feature/src
+
+  /sign-in-form
+  /sign-up-form
+
+  /consumer-sign-up
+  /consumer-sign-in
+
+  /auth-login
+    /service
+    /hooks
+      react query
+      adicionando cookies
+      middleare
 
 # feature:
   pagina de login
@@ -16,6 +24,8 @@ frontend:
   esqueceu a senha -> digite seu email
   recuperar senha ->  confirme senha
 
+  configurar o actions
+  config react query
   google auth
 
   estudar sobre:
@@ -27,14 +37,15 @@ frontend:
  - sitemap
 
 Backend:
-  create a job with queue to send emails
+  Rename files
+  Create a job with queue to send emails
+  Finalizar o docker compose com o artigo de deploy
 
   Google oauth2:
 https://medium.com/@flavtech/google-oauth2-authentication-with-nestjs-explained-ab585c53edec
 
 Refrash token:
   back:
-    Deve verificar se o access token é valido
     Deve ter uma rota para criar o refrash toke
     Deve criar um comando no service auth para criar um novo refrash token e salvar na coluna do user refrash token
 
@@ -48,11 +59,13 @@ Refrash token:
 
 
 Infra:
+  linters
   subir docker composer local
   k8s
   ci/cd
   github ci
   deploy na aws
+  atualizar node e nx
 
 Important to remember:
 artigo:

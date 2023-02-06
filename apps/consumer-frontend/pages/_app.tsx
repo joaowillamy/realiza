@@ -1,6 +1,9 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import { Theme } from '@realiza/frontend/shared/ui'
+import { configYupTranslation } from "@realiza/frontend/shared/form";
+
+configYupTranslation()
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,8 +11,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Welcome to consumer-frontend!</title>
       </Head>
-      <main className="app">
-        <Component {...pageProps} />
+      <main>
+        <Theme>
+          <Component {...pageProps} />
+        </Theme>
       </main>
     </>
   );

@@ -22,10 +22,21 @@
         "modules/api/infrastructure/src/index.ts"
       ],
       "@realiza/api/user": ["modules/api/user/src/index.ts"],
-      "@realiza/frontend/authentication": [
-        "modules/frontend/authentication/src/index.ts"
+      "@realiza/frontend/auth/data": [
+        "modules/frontend/auth/data/src/index.ts"
       ],
-      "@realiza/shared/types": ["modules/shared/types/src/index.ts"],
+      "@realiza/frontend/auth/feature": [
+        "modules/frontend/auth/feature/src/index.ts"
+      ],
+      "@realiza/frontend/shared/form": [
+        "modules/frontend/shared/form/src/index.ts"
+      ],
+      "@realiza/frontend/shared/ui": [
+        "modules/frontend/shared/ui/src/index.ts"
+      ],
+      "@realiza/frontend/shared/ui-form": [
+        "modules/frontend/shared/ui-form/src/index.ts"
+      ],
       "@realiza/shared/utils": ["modules/shared/utils/src/index.ts"]
     }
   },
