@@ -8,32 +8,26 @@ import { defaultUserForm, FormConfig, getUseFormConfig, onSubmitDevTest, useGetI
 import {WrapperAuth} from '../components/WrapperAuth/wrapperAuth'
 import WrapperScreen from '../components/WrapperScreen/WrapperScreen';
 import { OAuthButtonGroup } from '@realiza/frontend/shared/ui';
+import { CreateUserDto } from '@realiza/api/user';
 
-interface Form {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-};
+const userForm = defaultUserForm<CreateUserDto>()
 
-const userForm = defaultUserForm<Form>()
-
-const formConfig: FormConfig<Form> = {
+const formConfig: FormConfig<CreateUserDto> = {
   name: userForm.name("name"),
   email: userForm.email("email"),
   password: userForm.password("password"),
   passwordConfirmation: userForm.passwordConfirmation("passwordConfirmation"),
 }
 interface SignUpProps {
-  submitHandlerOnValid?: SubmitHandler<Form>;
-  SubmitErrorHandlerOnInvalid?: SubmitErrorHandler<Form>;
+  submitHandlerOnValid?: SubmitHandler<CreateUserDto>;
+  SubmitErrorHandlerOnInvalid?: SubmitErrorHandler<CreateUserDto>;
   title: string;
   describe: string;
 }
 
 export function SignUp({ title, describe, submitHandlerOnValid = onSubmitDevTest, SubmitErrorHandlerOnInvalid }: SignUpProps) {
-  const form = useForm<Form>(getUseFormConfig(formConfig))
-  const inputs = useGetInputs<Form>(form, formConfig)
+  const form = useForm<CreateUserDto>(getUseFormConfig(formConfig))
+  const inputs = useGetInputs<CreateUserDto>(form, formConfig)
   const { handleSubmit, formState } = form;
 
   return (

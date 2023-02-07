@@ -1,1 +1,3 @@
-export * from './services/frontend-auth--data';
+export * from './services/authService';
+export * from './dto/createUserDto'
+export * from './hooks/useAuthCreateUser'
