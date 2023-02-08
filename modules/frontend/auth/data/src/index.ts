@@ -6,3 +6,4 @@ export * from './dto/SigninDto'
 export * from './hooks/useAuthSignin'
 export * from './services/authCookiesService'
 export * from './hooks/useAuthLogout';
+export * from './hooks/useMe';

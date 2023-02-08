@@ -2,18 +2,16 @@ import { frontendEnvs } from "@realiza/shared/utils";
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios';
 import * as https from 'https'
-import * as fs from'fs';
-import * as path from 'path';
+// import * as fs from'fs';
+// import * as path from 'path';
 
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false, // (NOTE: this will disable client verification)
-  key: fs.readFileSync(path.join(process.cwd(), 'configs', 'ssl', 'key.pem')),
-  cert: fs.readFileSync(path.join(process.cwd(), 'configs', 'ssl', 'cert.pem')),
-  // passphrase: "YYY"
+  // key: fs.readFileSync(path.join(process.cwd(), 'configs', 'ssl', 'key.pem')),
+  // cert: fs.readFileSync(path.join(process.cwd(), 'configs', 'ssl', 'cert.pem')),
 })
 
 export const axiosInstance = axios.create({
-  // baseURL: `${frontendEnvs.apiBaseUrl}`,
   timeout: 10000,
   headers: {'Content-Type': 'application/json'},
   httpsAgent
@@ -35,9 +33,9 @@ const getToken = async (req: NextApiRequest, res: NextApiResponse) => {
     data: req.body || queries
   })
 
-  // refrash token here
+  // TODO: refrash token here
 
-  res.status(response.status).json(response.data)
+  res.status(response.status).json({...response.data})
 }
 
 export default getToken;

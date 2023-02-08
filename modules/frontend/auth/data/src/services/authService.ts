@@ -7,6 +7,7 @@ import { SigninResponseDto } from '../dto/SigninResponseDto';
 import { handleAxiosError, handleUnexpectedError } from './interceptors';
 import { MeResponseDto } from '../dto/meResponseDto';
 import { serviceInstance, serviceProxyInstance } from './Instance';
+import { MeDto } from '../dto/meDto';
 
 export function AuthService() {
   const createUser = async (user: CreateUserDto): Promise<CreateUserResponseDto>  => {
@@ -72,11 +73,12 @@ export function AuthService() {
 
   const me = async (): Promise<MeResponseDto>  => {
     try {
-      const response = await serviceProxyInstance.get<MeResponseDto>(`/authentication/me`);
+      const response = await serviceProxyInstance.get<MeDto>(`/authentication/me`);
+
       return {
-        me: response.data.me,
+        me: response.data,
         error: false,
-        message: response.data.message
+        message: 'Sucesso'
       };
 
     } catch (error) {
