@@ -33,11 +33,14 @@ export class AuthenticationService {
         template: 'email-confirmation',
         context: {
           name: this.getUserName(user.name),
-          token: user.confirmationToken,
+          link: `${backendEnvs.frontendUrl}/auth/confirme-email/${user.confirmationToken}`
         },
       };
 
-      await this.mailerService.sendMail(mail);
+      if (!backendEnvs.mailDevBlockSending) {
+        await this.mailerService.sendMail(mail);
+      }
+
       return user as User;
     }
   }
@@ -80,10 +83,13 @@ export class AuthenticationService {
       template: 'recover-password',
       context: {
         name: this.getUserName(user.name),
-        token: user.recoverToken,
+        link: `${backendEnvs.frontendUrl}/${user.recoverToken}` ,
       },
     };
-    await this.mailerService.sendMail(mail);
+
+    if (!backendEnvs.mailDevBlockSending) {
+      await this.mailerService.sendMail(mail);
+    }
   }
 
   async changePassword(

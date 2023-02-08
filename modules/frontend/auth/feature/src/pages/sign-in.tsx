@@ -10,28 +10,25 @@ import { defaultUserForm, FormConfig, getUseFormConfig, onSubmitDevTest, useGetI
 import {WrapperAuth} from '../components/WrapperAuth/wrapperAuth'
 import WrapperScreen from '../components/WrapperScreen/WrapperScreen';
 import { OAuthButtonGroup } from '@realiza/frontend/shared/ui';
+import { SigninDto } from '@realiza/frontend/auth/data';
 
-interface Form {
-  email: string;
-  password: string;
-};
 
-const userForm = defaultUserForm<Form>()
+const userForm = defaultUserForm<SigninDto>()
 
-const formConfig: FormConfig<Form> = {
+const formConfig: FormConfig<SigninDto> = {
   email: userForm.email("email"),
   password: {...userForm.password("password"), validate: yup.string() },
 }
 interface SignInProps {
-  submitHandlerOnValid?: SubmitHandler<Form>;
-  SubmitErrorHandlerOnInvalid?: SubmitErrorHandler<Form>;
+  submitHandlerOnValid?: SubmitHandler<SigninDto>;
+  SubmitErrorHandlerOnInvalid?: SubmitErrorHandler<SigninDto>;
   title: string;
   describe: string;
 }
 
 export function SignIn({ title, describe, submitHandlerOnValid = onSubmitDevTest, SubmitErrorHandlerOnInvalid }: SignInProps) {
-  const form = useForm<Form>(getUseFormConfig(formConfig))
-  const inputs = useGetInputs<Form>(form, formConfig)
+  const form = useForm<SigninDto>(getUseFormConfig(formConfig))
+  const inputs = useGetInputs<SigninDto>(form, formConfig)
   const { handleSubmit, formState } = form;
 
   return (

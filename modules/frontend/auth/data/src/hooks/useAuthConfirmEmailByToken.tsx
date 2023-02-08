@@ -1,4 +1,3 @@
-import { CreateUserDto } from '../dto/createUserDto'
 import AuthService from '../services/authService'
 import { UseMutationOptions, useMutation, useQueryClient } from 'react-query';
 import { CreateUserResponseDto } from '../dto/createUserResponseDto';
@@ -7,15 +6,15 @@ import { QUERY_KEYS } from '../constants/querykes';
 import { useToast, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router'
 
-export const useAuthCreateUser = () => {
+export const useAuthConfirmEmailByToken = () => {
   const queryClient = useQueryClient();
   const authService = AuthService();
   const toast = useToast();
   const router = useRouter()
 
   const mutationRequest = React.useCallback(
-    async function mutationRequestWrapper(requestData: CreateUserDto): Promise<CreateUserResponseDto> {
-      return authService.createUser(requestData)
+    async function mutationRequestWrapper(requestData: string): Promise<CreateUserResponseDto> {
+      return authService.confirmEmailByToken(requestData)
     },
     [authService]
   );
@@ -32,19 +31,22 @@ export const useAuthCreateUser = () => {
 
   const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties)
 
-  const createUser =  React.useCallback(async (requestData: CreateUserDto) => {
+  const confirmEmailByToken = React.useCallback(async (requestData: string) => {
     try {
       const result = await mutateAsync(requestData);
 
       if (!result?.error) {
         toast({
-          title: 'Conta criada com sucesso',
-          description: "Verifique seu email",
+          title: 'E-mail confirmado com sucesso',
+          description: "Já pode entrar na nossa aplicação <3",
           status: 'success',
           duration: 9000,
           isClosable: true,
         })
-        router.replace('/auth/confirme-email/false')
+        const time = setTimeout(() => {
+          router.replace('/auth/sign-in')
+          clearTimeout(time)
+        }, 400);
       } else {
         toast({
           title: 'Verifique as informações:',
@@ -65,5 +67,5 @@ export const useAuthCreateUser = () => {
     }
   }, [mutateAsync, router, toast])
 
-  return {error, data, isLoading, createUser}
+  return { error, data, isLoading, confirmEmailByToken }
 }

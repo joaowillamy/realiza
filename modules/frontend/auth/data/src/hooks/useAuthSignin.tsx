@@ -1,26 +1,28 @@
-import { CreateUserDto } from '../dto/createUserDto'
+import { SigninDto } from '../dto/SigninDto'
 import AuthService from '../services/authService'
 import { UseMutationOptions, useMutation, useQueryClient } from 'react-query';
-import { CreateUserResponseDto } from '../dto/createUserResponseDto';
+import { SigninResponseDto } from '../dto/SigninResponseDto';
 import React from 'react';
 import { QUERY_KEYS } from '../constants/querykes';
 import { useToast, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router'
+import { AuthCookiesService } from '../services/authCookiesService';
 
-export const useAuthCreateUser = () => {
+export const useAuthSignin = () => {
   const queryClient = useQueryClient();
   const authService = AuthService();
   const toast = useToast();
   const router = useRouter()
+  const authCookiesService = AuthCookiesService()
 
   const mutationRequest = React.useCallback(
-    async function mutationRequestWrapper(requestData: CreateUserDto): Promise<CreateUserResponseDto> {
-      return authService.createUser(requestData)
+    async function mutationRequestWrapper(requestData: SigninDto): Promise<SigninResponseDto> {
+      return authService.signin(requestData)
     },
     [authService]
   );
 
-  const mutationProperties: UseMutationOptions<CreateUserResponseDto | null, unknown, unknown, unknown> = {
+  const mutationProperties: UseMutationOptions<SigninResponseDto | null, unknown, unknown, unknown> = {
     onSuccess(data) {
       console.log({data})
       queryClient.invalidateQueries([QUERY_KEYS.ME]);
@@ -32,23 +34,27 @@ export const useAuthCreateUser = () => {
 
   const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties)
 
-  const createUser =  React.useCallback(async (requestData: CreateUserDto) => {
+  const signin =  React.useCallback(async (requestData: SigninDto) => {
     try {
       const result = await mutateAsync(requestData);
+      console.log({result});
 
-      if (!result?.error) {
+      if (!result?.error && result?.token) {
+        await authCookiesService.setTokenCookie(result?.token)
+
         toast({
-          title: 'Conta criada com sucesso',
-          description: "Verifique seu email",
+          title: 'Entrouuu <3',
+          description: "O sistema está liberado!",
           status: 'success',
           duration: 9000,
           isClosable: true,
         })
-        router.replace('/auth/confirme-email/false')
-      } else {
+
+        router.replace('/private/premium')
+      } else if (result?.message?.length){
         toast({
           title: 'Verifique as informações:',
-          description: typeof result.message === 'string' ? <Text>{result.message}</Text> : result.message.map((message, index) => <Text key={index}> - {message};</Text>),
+          description: typeof result.message === 'string' ? <Text>{result.message}</Text> : result?.message?.map((message, index) => <Text key={index}> - {message};</Text>),
           status: 'warning',
           duration: 9000,
           isClosable: true,
@@ -63,7 +69,7 @@ export const useAuthCreateUser = () => {
           isClosable: true,
         })
     }
-  }, [mutateAsync, router, toast])
+  }, [authCookiesService, mutateAsync, router, toast])
 
-  return {error, data, isLoading, createUser}
+  return {error, data, isLoading, signin}
 }
