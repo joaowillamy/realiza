@@ -1,12 +1,12 @@
 import {
-  Injectable,
-  Inject,
-  NestInterceptor,
   CallHandler,
   ExecutionContext,
+  Inject,
+  Injectable,
+  NestInterceptor,
 } from '@nestjs/common';
-import { Logger } from 'winston';
 import { Observable } from 'rxjs';
+import { Logger } from 'winston';
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
@@ -35,7 +35,7 @@ export class LoggerInterceptor implements NestInterceptor {
       },
       from: req.ip,
       madeBy: userEmail,
-    }
+    };
 
     this.logger.info(`${log.method} - ${log.route} \n`, log);
   }

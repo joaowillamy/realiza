@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { setLocale } from 'yup'
+import { setLocale } from 'yup';
 
 export const configYupTranslation = () => {
   const translation = {
@@ -37,6 +37,6 @@ export const configYupTranslation = () => {
       min: '${path} deve ter no mínimo ${min} itens',
       max: '${path} deve ter no máximo ${max} itens',
     },
-  }
-  setLocale(translation)
-}
+  };
+  setLocale(translation);
+};

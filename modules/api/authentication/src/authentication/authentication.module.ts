@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-
+import { PassportModule } from '@nestjs/passport';
+import { TypeOrmExModule } from '@realiza/api/infrastructure';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { UserModule, UserRepository } from '@realiza/api/user'
+import { UserModule, UserRepository } from '@realiza/api/user';
 
-import { AuthenticationService } from './authentication.service';
 import { AuthenticationController } from './authentication.controller';
+import { AuthenticationService } from './authentication.service';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { TypeOrmExModule } from '@realiza/api/infrastructure';
 
 @Module({
   imports: [

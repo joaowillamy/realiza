@@ -24,6 +24,6 @@ export const mailerConfig: MailerOptions = {
     auth: {
       user: backendEnvs.mailUser,
       pass: backendEnvs.mailPass,
-    }
-  }
+    },
+  },
 };

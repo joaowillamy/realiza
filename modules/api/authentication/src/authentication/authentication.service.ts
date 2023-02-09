@@ -1,11 +1,23 @@
-import { Inject, Injectable, NotFoundException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
-import { randomBytes } from 'crypto';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
-
+import {
+  ChangePasswordDto,
+  CreateUserDto,
+  CredentialsDto,
+  User,
+  UserRepository,
+  UserRole,
+} from '@realiza/api/user';
 import { backendEnvs } from '@realiza/shared/utils';
-import {User, UserRepository, UserRole, CreateUserDto, CredentialsDto, ChangePasswordDto} from '@realiza/api/user'
+import { randomBytes } from 'crypto';
 import { Logger } from 'winston';
 
 @Injectable()
@@ -24,7 +36,7 @@ export class AuthenticationService {
     } else {
       const user = await this.userRepository.createUser(
         createUserDto,
-        UserRole.USER,
+        UserRole.USER
       );
 
       const mail = {
@@ -33,7 +45,7 @@ export class AuthenticationService {
         template: 'email-confirmation',
         context: {
           name: this.getUserName(user.name),
-          link: `${backendEnvs.frontendUrl}/auth/confirme-email/${user.confirmationToken}`
+          link: `${backendEnvs.frontendUrl}/auth/confirme-email/${user.confirmationToken}`,
         },
       };
 
@@ -63,7 +75,7 @@ export class AuthenticationService {
   async confirmEmail(confirmationToken: string): Promise<void> {
     const result = await this.userRepository.update(
       { confirmationToken },
-      { confirmationToken: null },
+      { confirmationToken: null }
     );
     if (result.affected === 0) throw new NotFoundException('Token inválido');
   }
@@ -83,7 +95,7 @@ export class AuthenticationService {
       template: 'recover-password',
       context: {
         name: this.getUserName(user.name),
-        link: `${backendEnvs.frontendUrl}/${user.recoverToken}` ,
+        link: `${backendEnvs.frontendUrl}/${user.recoverToken}`,
       },
     };
 
@@ -94,7 +106,7 @@ export class AuthenticationService {
 
   async changePassword(
     id: string,
-    changePasswordDto: ChangePasswordDto,
+    changePasswordDto: ChangePasswordDto
   ): Promise<void> {
     const { password, passwordConfirmation } = changePasswordDto;
 
@@ -106,30 +118,28 @@ export class AuthenticationService {
 
   async resetPassword(
     recoverToken: string,
-    changePasswordDto: ChangePasswordDto,
+    changePasswordDto: ChangePasswordDto
   ): Promise<void> {
-    const user = await this.userRepository.findOne(
-      {
-        where: { recoverToken },
-        select: ['id'],
-      },
-    );
+    const user = await this.userRepository.findOne({
+      where: { recoverToken },
+      select: ['id'],
+    });
 
     if (!user) throw new NotFoundException('Token inválido.');
 
     try {
       await this.changePassword(user.id.toString(), changePasswordDto);
     } catch (error) {
-      this.logger.error(error)
+      this.logger.error(error);
       throw error;
     }
   }
 
   private getUserName(name: string): string {
-    return name?.length ? name.split(" ")[0] : ''
+    return name?.length ? name.split(' ')[0] : '';
   }
 
   private getUserEmail(email): string {
-    return backendEnvs.isDevelopment ? backendEnvs.mailDevFromMyUser : email
+    return backendEnvs.isDevelopment ? backendEnvs.mailDevFromMyUser : email;
   }
 }
