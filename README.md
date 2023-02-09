@@ -33,7 +33,8 @@
 ```
 yarn install
 yarn create-certs
-yarn nx server <project> // example: yarn nx server api
+docker-compose up -d
+yarn start:dev
 ```
 
 ## Grouping modules:
