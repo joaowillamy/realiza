@@ -12,15 +12,30 @@ import {
 } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
 import NextLink from "next/link"
-
+import React from 'react'
 /* eslint-disable-next-line */
 export interface MenuProps {}
 
+const butons = {
+  login: 'login',
+  create: 'create'
+}
+
+type Buttons = keyof typeof butons
+
 export function Menu(props: MenuProps) {
   const isDesktop = useBreakpointValue({ base: false, lg: true })
+  const [isLoading, setIsLoading ] = React.useState<Buttons | null>(null)
+
+  const onClick = (button: Buttons) => {
+    setIsLoading(button)
+  }
+
+  const isLoadingButton = (button: Buttons): boolean => {
+    return isLoading === button
+  }
 
   return (
-
     <Flex backgroundColor={'gray.50'} flexDirection={'column'}>
         <Box p={5}  mb={2} backgroundColor={'white'}  borderWidth='1px' borderBottomRadius='2xl' shadow={'md'}>
           <Container maxW='7xl' >
@@ -36,10 +51,10 @@ export function Menu(props: MenuProps) {
 
                   <HStack spacing="3">
                     <LinkBox as={NextLink} href={"/auth/sign-up"}>
-                      <Button tabIndex={-1} mr={4} color='twitter.400' variant='unstyled'>Cadastre-se</Button>
+                      <Button tabIndex={-1} mr={4} color='twitter.400' isLoading={isLoadingButton('create')} onClick={() => onClick('create')} variant='unstyled'>Cadastre-se</Button>
                     </LinkBox>
                     <LinkBox as={NextLink} href={"/auth/sign-in"} >
-                      <Button tabIndex={-1} colorScheme='twitter'>Entrar</Button>
+                      <Button tabIndex={-1} colorScheme='twitter' isLoading={isLoadingButton('login')} onClick={() => onClick('login')}>Entrar</Button>
                     </LinkBox>
                   </HStack>
                 </Flex>
