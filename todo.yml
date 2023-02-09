@@ -1,34 +1,20 @@
-Frontend:
-  criar wrapper auth - modules/frontend/auth/feature/src
+frontend:
+  logout
+    /fetch ok
+    /mutation ok
+  me
+    route service ok
+    query
+    useeffect in private
 
-  /sign-in-form
-  /sign-up-form
+  adicionar um try catch no proxy
 
-  /consumer-sign-up
-  /consumer-sign-in
+  Esqueceu a senha -> digite seu email
+  Recuperar senha ->  confirme senha
 
-  /auth-login
-    /service
-    /hooks
-      react query
-      adicionando cookies
-      middleare
+  Google auth
 
-# feature:
-  pagina de login
-  pagina de criar usuário
-  pagina de usuário confirmado
-  pagina autenticado
-  pagina home
-
-  esqueceu a senha -> digite seu email
-  recuperar senha ->  confirme senha
-
-  configurar o actions
-  config react query
-  google auth
-
-  estudar sobre:
+  Estudar sobre:
     lgpd
 
 # backlog
@@ -42,7 +28,7 @@ Backend:
   Finalizar o docker compose com o artigo de deploy
 
   Google oauth2:
-https://medium.com/@flavtech/google-oauth2-authentication-with-nestjs-explained-ab585c53edec
+    - https://medium.com/@flavtech/google-oauth2-authentication-with-nestjs-explained-ab585c53edec
 
 Refrash token:
   back:

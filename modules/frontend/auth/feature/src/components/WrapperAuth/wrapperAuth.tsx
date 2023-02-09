@@ -9,8 +9,8 @@ export interface WrapperAuthProps  {
   children?: React.ReactNode;
   title: string;
   describe: string;
-  subDescribe: React.ReactNode;
-  onSubmit: (e?: BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>
+  subDescribe?: React.ReactNode;
+  onSubmit?: (e?: BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>
 }
 
 export const WrapperAuth = ({ children, title, describe, onSubmit, subDescribe }: WrapperAuthProps) => {
@@ -28,9 +28,9 @@ export const WrapperAuth = ({ children, title, describe, onSubmit, subDescribe }
             >
               <Flex align={'center'} flexDir="column" justifyContent="center" alignItems="center">
                 <LinkBox ml={1} as={NextLink} href={"/"}>
-                  <Heading mb={2} color="twitter.600" >{title}</Heading>
+                  <Heading mb={2} textAlign={'center'} color="twitter.600" >{title}</Heading>
                 </LinkBox>
-                <Heading size={'sm'} mb={2}>{describe}</Heading>
+                <Heading textAlign={'center'} size={'sm'} mb={2}>{describe}</Heading>
                 {subDescribe}
               </Flex>
               {children}

@@ -12,4 +12,5 @@ export const backendEnvs = {
   mailUser: process.env['MAIL_USER'],
   mailPass: process.env['MAIL_PASS'],
   mailDevFromMyUser: process.env['MAIL_DEV_FROM_MY_USER'],
+  mailDevBlockSending: process.env['MAIL_DEV_BLOCK_SENDING'] === 'true',
 }

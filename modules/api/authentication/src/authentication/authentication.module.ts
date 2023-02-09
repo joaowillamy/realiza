@@ -18,7 +18,7 @@ import { TypeOrmExModule } from '@realiza/api/infrastructure';
     TypeOrmExModule.forCustomRepository([UserRepository]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: 18000 },
+      signOptions: { expiresIn: 60 * 60 * 5 },
     }),
   ],
   controllers: [AuthenticationController],
