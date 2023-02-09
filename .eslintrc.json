@@ -1,7 +1,12 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": [
+    "@nrwl/nx",
+    "@typescript-eslint",
+    "prettier",
+    "simple-import-sort"
+  ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -23,8 +28,17 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "extends": [
+        "plugin:@nrwl/nx/typescript",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

@@ -1,8 +1,35 @@
 import {
-  Controller, Post, UseGuards, Get, ValidationPipe, Body, Param, Patch, ForbiddenException, Delete, Query, UnauthorizedException
+  Body,
+  Controller,
+  Delete,
+  ForbiddenException,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UnauthorizedException,
+  UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
-import { ChangePasswordDto, CreateUserDto, CredentialsDto, FindUsersQueryDto, ReturnUserDto, UpdateUserDto, User, UserRole, UserService } from '@realiza/api/user';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
+  ChangePasswordDto,
+  CreateUserDto,
+  CredentialsDto,
+  FindUsersQueryDto,
+  ReturnUserDto,
+  UpdateUserDto,
+  User,
+  UserRole,
+  UserService,
+} from '@realiza/api/user';
 
 import { AuthenticationService } from './authentication.service';
 import { GetUser } from './decorator/get-user.decorator';
@@ -14,7 +41,7 @@ import { RolesGuard } from './guards/roles.guard';
 export class AuthenticationController {
   constructor(
     private usersService: UserService,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService
   ) {}
 
   @ApiTags('Auth')
@@ -24,7 +51,7 @@ export class AuthenticationController {
   @ApiResponse({ status: 409, description: 'Conflict.' })
   @Post('/signup')
   async signUp(
-    @Body(ValidationPipe) createUserDto: CreateUserDto,
+    @Body(ValidationPipe) createUserDto: CreateUserDto
   ): Promise<{ message: string }> {
     await this.authenticationService.signUp(createUserDto);
     return {
@@ -37,7 +64,7 @@ export class AuthenticationController {
   @ApiResponse({ status: 200, description: 'sign' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async signIn(
-    @Body(ValidationPipe) credentiaslsDto: CredentialsDto,
+    @Body(ValidationPipe) credentiaslsDto: CredentialsDto
   ): Promise<{ token: string }> {
     return await this.authenticationService.signIn(credentiaslsDto);
   }
@@ -57,11 +84,11 @@ export class AuthenticationController {
   async updateUser(
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
     @GetUser() user: User,
-    @Param('id') id: string,
+    @Param('id') id: string
   ) {
     if (user.role != UserRole.ADMIN && user.id.toString() != id) {
       throw new ForbiddenException(
-        'Você não tem autorização para acessar esse recurso',
+        'Você não tem autorização para acessar esse recurso'
       );
     } else {
       return this.usersService.updateUser(updateUserDto, id);
@@ -79,12 +106,11 @@ export class AuthenticationController {
     };
   }
 
-
   @ApiTags('Auth')
   @Post('/send-recover-email')
-  @ApiBody({ schema: { example: { email: 'will@gmail.com' }}})
+  @ApiBody({ schema: { example: { email: 'will@gmail.com' } } })
   async sendRecoverPasswordEmail(
-    @Body('email') email: string,
+    @Body('email') email: string
   ): Promise<{ message: string }> {
     await this.authenticationService.sendRecoverPasswordEmail(email);
     return {
@@ -96,7 +122,7 @@ export class AuthenticationController {
   @Patch('/reset-password/:token')
   async resetPassword(
     @Param('token') token: string,
-    @Body(ValidationPipe) changePasswordDto: ChangePasswordDto,
+    @Body(ValidationPipe) changePasswordDto: ChangePasswordDto
   ): Promise<{ message: string }> {
     await this.authenticationService.resetPassword(token, changePasswordDto);
 
@@ -111,11 +137,11 @@ export class AuthenticationController {
   async changePassword(
     @Param('id') id: string,
     @Body(ValidationPipe) changePasswordDto: ChangePasswordDto,
-    @GetUser() user: User,
+    @GetUser() user: User
   ) {
     if (user.role !== UserRole.ADMIN && user.id.toString() !== id)
       throw new UnauthorizedException(
-        'Você não tem permissão para realizar esta operação',
+        'Você não tem permissão para realizar esta operação'
       );
 
     await this.authenticationService.changePassword(id, changePasswordDto);
@@ -130,7 +156,7 @@ export class AuthenticationController {
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   async createAdminUser(
-    @Body(ValidationPipe) createUserDto: CreateUserDto,
+    @Body(ValidationPipe) createUserDto: CreateUserDto
   ): Promise<ReturnUserDto> {
     const user = await this.usersService.createAdminUser(createUserDto);
     return {

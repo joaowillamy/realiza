@@ -1,5 +1,11 @@
-import { Injectable, InternalServerErrorException, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { FindUsersQueryDto } from './dto/find-users-query.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -11,7 +17,7 @@ import { UserRepository } from './users.repository';
 export class UserService {
   constructor(
     @InjectRepository(UserRepository)
-    private userRepository: UserRepository,
+    private userRepository: UserRepository
   ) {}
 
   async createAdminUser(createUserDto: CreateUserDto): Promise<User> {
@@ -24,7 +30,7 @@ export class UserService {
 
   async findUserById(userId: string): Promise<User> {
     const user = await this.userRepository.findOne({
-      where: {id: userId},
+      where: { id: userId },
       select: ['email', 'name', 'role', 'id'],
     });
 
@@ -45,7 +51,7 @@ export class UserService {
       return user;
     } catch (error) {
       throw new InternalServerErrorException(
-        'Erro ao salvar os dados no banco de dados',
+        'Erro ao salvar os dados no banco de dados'
       );
     }
   }
@@ -54,13 +60,13 @@ export class UserService {
     const result = await this.userRepository.delete({ id: userId });
     if (result.affected === 0) {
       throw new NotFoundException(
-        'Não foi encontrado um usuário com o ID informado',
+        'Não foi encontrado um usuário com o ID informado'
       );
     }
   }
 
   async findUsers(
-    queryDto: FindUsersQueryDto,
+    queryDto: FindUsersQueryDto
   ): Promise<{ users: User[]; total: number }> {
     const users = await this.userRepository.findUsers(queryDto);
     return users;

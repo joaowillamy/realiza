@@ -1,6 +1,12 @@
-import { FormControlProps, InputGroup, InputRightElement, InputLeftElement } from '@chakra-ui/react';
+import {
+  FormControlProps,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from '@chakra-ui/react';
 import React from 'react';
-import * as S from './styled'
+
+import * as S from './styled';
 
 export interface InputBaseProps extends FormControlProps {
   readonly children?: React.ReactNode;
@@ -11,19 +17,28 @@ export interface InputBaseProps extends FormControlProps {
   leftElement?: React.ReactNode;
 }
 
-export function InputBase({children, id, label, error, rightElement, leftElement, ...rest}: InputBaseProps) {
-  const formattedError = id && label && typeof error === 'string' ? error?.replace(id, label) : error
+export function InputBase({
+  children,
+  id,
+  label,
+  error,
+  rightElement,
+  leftElement,
+  ...rest
+}: InputBaseProps) {
+  const formattedError =
+    id && label && typeof error === 'string'
+      ? error?.replace(id, label)
+      : error;
 
   return (
     <S.Wrapper {...rest}>
       {label && <S.Label htmlFor={id}>{label}</S.Label>}
       <InputGroup>
-        {leftElement && (
-          <InputLeftElement children={leftElement} />
-        )}
+        {leftElement && <InputLeftElement children={leftElement} />}
         {children}
         {rightElement && (
-          <InputRightElement  width='3.5rem' children={rightElement} />
+          <InputRightElement width='3.5rem' children={rightElement} />
         )}
       </InputGroup>
       {error && <S.Error>{formattedError}</S.Error>}

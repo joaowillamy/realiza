@@ -4,4 +4,4 @@ export type MeResponseDto = {
   message: string | string[];
   me?: MeDto;
   error: boolean;
-}
+};

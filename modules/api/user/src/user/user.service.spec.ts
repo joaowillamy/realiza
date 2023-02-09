@@ -1,15 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import {
-  UnprocessableEntityException,
   NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 
-import { UserRole } from './user-roles.enum';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRepository } from './users.repository';
-import { UserService } from './user.service';
 import { FindUsersQueryDto } from './dto/find-users-query.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
+import { UserRole } from './user-roles.enum';
+import { UserRepository } from './users.repository';
 
 const mockUserRepository = () => ({
   createUser: jest.fn(),
@@ -18,7 +18,6 @@ const mockUserRepository = () => ({
   findUsers: jest.fn(),
   update: jest.fn(),
 });
-
 
 describe('UserService', () => {
   let userRepository: UserRepository;
@@ -62,7 +61,7 @@ describe('UserService', () => {
 
       expect(userRepository.createUser).toHaveBeenCalledWith(
         mockCreateUserDto,
-        UserRole.ADMIN,
+        UserRole.ADMIN
       );
       expect(result).toEqual('mockUser');
     });
@@ -70,7 +69,7 @@ describe('UserService', () => {
     it('should throw an error if passwords doesnt match', async () => {
       mockCreateUserDto.passwordConfirmation = 'wrongPassword';
       expect(service.createAdminUser(mockCreateUserDto)).rejects.toThrow(
-        UnprocessableEntityException,
+        UnprocessableEntityException
       );
     });
   });
@@ -82,7 +81,10 @@ describe('UserService', () => {
 
       const result = await service.findUserById('mockId');
       const select = ['email', 'name', 'role', 'id'];
-      expect(userRepository.findOne).toHaveBeenCalledWith({ where: { id: 'mockId' }, select });
+      expect(userRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 'mockId' },
+        select,
+      });
       expect(result).toEqual('mockUser');
     });
 
@@ -109,7 +111,9 @@ describe('UserService', () => {
 
   describe('findUsers', () => {
     it('should call the findUsers method of the userRepository', async () => {
-      (userRepository.findUsers  as jest.Mock).mockResolvedValue('resultOfsearch');
+      (userRepository.findUsers as jest.Mock).mockResolvedValue(
+        'resultOfsearch'
+      );
       const mockFindUsersQueryDto: FindUsersQueryDto = {
         name: '',
         email: '',
@@ -121,7 +125,7 @@ describe('UserService', () => {
       };
       const result = await service.findUsers(mockFindUsersQueryDto);
       expect(userRepository.findUsers).toHaveBeenCalledWith(
-        mockFindUsersQueryDto,
+        mockFindUsersQueryDto
       );
       expect(result).toEqual('resultOfsearch');
     });
@@ -142,7 +146,7 @@ describe('UserService', () => {
       (userRepository.update as jest.Mock).mockResolvedValue({ affected: 0 });
 
       expect(service.updateUser({} as UpdateUserDto, 'mockId')).rejects.toThrow(
-        NotFoundException,
+        NotFoundException
       );
     });
   });

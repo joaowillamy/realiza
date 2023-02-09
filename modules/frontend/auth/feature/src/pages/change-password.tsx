@@ -1,22 +1,27 @@
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
-import { Button, Flex, LinkBox, Text } from "@chakra-ui/react";
-import NextLink from "next/link"
+import { Button, Flex, LinkBox, Text } from '@chakra-ui/react';
+import {
+  defaultUserForm,
+  FormConfig,
+  getUseFormConfig,
+  onSubmitDevTest,
+  useGetInputs,
+} from '@realiza/frontend/shared/form';
+import { Password } from '@realiza/frontend/shared/ui-form';
+import NextLink from 'next/link';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
-import { Password } from "@realiza/frontend/shared/ui-form";
-import { defaultUserForm, FormConfig, getUseFormConfig, onSubmitDevTest, useGetInputs } from "@realiza/frontend/shared/form";
-
-import {WrapperAuth} from '../components/WrapperAuth/wrapperAuth'
+import { WrapperAuth } from '../components/WrapperAuth/wrapperAuth';
 import WrapperScreen from '../components/WrapperScreen/WrapperScreen';
 
 interface Form {
   email: string;
-};
+}
 
-const userForm = defaultUserForm<Form>()
+const userForm = defaultUserForm<Form>();
 
 const formConfig: FormConfig<Form> = {
-  email: userForm.email("email"),
-}
+  email: userForm.email('email'),
+};
 interface ChangePasswordProps {
   submitHandlerOnValid?: SubmitHandler<Form>;
   SubmitErrorHandlerOnInvalid?: SubmitErrorHandler<Form>;
@@ -24,26 +29,42 @@ interface ChangePasswordProps {
   describe: string;
 }
 
-export function ChangePassword({ title, describe, submitHandlerOnValid = onSubmitDevTest, SubmitErrorHandlerOnInvalid }: ChangePasswordProps) {
-  const form = useForm<Form>(getUseFormConfig(formConfig))
-  const inputs = useGetInputs<Form>(form, formConfig)
+export function ChangePassword({
+  title,
+  describe,
+  submitHandlerOnValid = onSubmitDevTest,
+  SubmitErrorHandlerOnInvalid,
+}: ChangePasswordProps) {
+  const form = useForm<Form>(getUseFormConfig(formConfig));
+  const inputs = useGetInputs<Form>(form, formConfig);
   const { handleSubmit, formState } = form;
 
   return (
     <WrapperScreen>
-      <WrapperAuth title={title}
+      <WrapperAuth
+        title={title}
         describe={describe}
-        onSubmit={handleSubmit(submitHandlerOnValid, SubmitErrorHandlerOnInvalid)}
-        subDescribe={<Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>}
-        >
+        onSubmit={handleSubmit(
+          submitHandlerOnValid,
+          SubmitErrorHandlerOnInvalid
+        )}
+        subDescribe={
+          <Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>
+        }
+      >
         <Password {...inputs.email()} />
 
-        <Button mt={4} colorScheme='twitter' isLoading={formState.isSubmitting} type='submit'>
+        <Button
+          mt={4}
+          colorScheme='twitter'
+          isLoading={formState.isSubmitting}
+          type='submit'
+        >
           Enviar
         </Button>
         <Flex mt={2} flexDirection={'column'} align={'center'}>
-          <LinkBox as={NextLink} href={"/auth/sign-in"}>
-            <Button tabIndex={-1} color='twitter.400' variant="unstyled">
+          <LinkBox as={NextLink} href={'/auth/sign-in'}>
+            <Button tabIndex={-1} color='twitter.400' variant='unstyled'>
               Voltar
             </Button>
           </LinkBox>
@@ -54,4 +75,3 @@ export function ChangePassword({ title, describe, submitHandlerOnValid = onSubmi
 }
 
 export default ChangePassword;
-

@@ -1,7 +1,6 @@
-import { Menu } from "..";
+import { Menu } from '..';
 
 export function Blog() {
-
   return (
     <div>
       Blog

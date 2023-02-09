@@ -1,13 +1,13 @@
+import * as bcrypt from 'bcrypt';
 import {
   BaseEntity,
-  Entity,
-  Unique,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 
 @Entity()
 @Unique(['email'])

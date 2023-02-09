@@ -1,24 +1,22 @@
+import { useToast } from '@chakra-ui/react';
+import { configYupTranslation } from '@realiza/frontend/shared/form';
+import { Theme } from '@realiza/frontend/shared/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import React, { useEffect } from 'react';
 
-import { Theme } from '@realiza/frontend/shared/ui'
-import { configYupTranslation } from "@realiza/frontend/shared/form";
-import { useToast } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-
-configYupTranslation()
+configYupTranslation();
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const toast = useToast();
-  const router = useRouter()
-  const messageError = router.query['message-error']
-  const messageInfo = router.query['message-info']
+  const router = useRouter();
+  const messageError = router.query['message-error'];
+  const messageInfo = router.query['message-info'];
 
-
-  useEffect(()=> {
+  useEffect(() => {
     if (!messageError) return;
 
     toast({
@@ -27,11 +25,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
       status: 'error',
       duration: 9000,
       isClosable: true,
-    })
-    router.replace(router.pathname)
-  }, [toast, messageError, router])
+    });
+    router.replace(router.pathname);
+  }, [toast, messageError, router]);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (!messageInfo) return;
 
     toast({
@@ -40,9 +38,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
       status: 'info',
       duration: 9000,
       isClosable: true,
-    })
-    router.replace(router.pathname)
-  }, [toast, messageInfo, router])
+    });
+    router.replace(router.pathname);
+  }, [toast, messageInfo, router]);
 
   const queryClient: QueryClient = React.useMemo(function configWrapper() {
     return new QueryClient({
@@ -74,6 +72,5 @@ function CustomApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
-
 
 export default CustomApp;

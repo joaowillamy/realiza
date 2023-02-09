@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { User } from '@realiza/api/user';
 import { backendEnvs } from '@realiza/shared/utils';
-import { User } from '@realiza/api/user'
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',

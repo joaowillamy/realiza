@@ -1,12 +1,10 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 const ConfirmePassword = () => {
-  const router = useRouter()
-  const { token } = router.query
+  const router = useRouter();
+  const { token } = router.query;
 
-  return <p>ConfirmePassword: {token}</p>
-}
+  return <p>ConfirmePassword: {token}</p>;
+};
 
-export default ConfirmePassword
-
-
+export default ConfirmePassword;
