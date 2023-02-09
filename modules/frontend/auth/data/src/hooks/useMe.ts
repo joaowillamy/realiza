@@ -1,9 +1,10 @@
-import { MeDto } from "../dto/meDto";
+import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { QUERY_KEYS } from "../constants/querykes";
-import AuthService from "../services/authService";
-import { MeResponseDto } from "../dto/meResponseDto";
-import React, { useState } from "react";
+
+import { QUERY_KEYS } from '../constants/querykes';
+import { MeDto } from '../dto/meDto';
+import { MeResponseDto } from '../dto/meResponseDto';
+import AuthService from '../services/authService';
 
 interface UseMe {
   me?: MeDto;
@@ -11,7 +12,7 @@ interface UseMe {
   clearUser: () => void;
   error: unknown;
   isLoading: boolean;
-  meRefetch: () => Promise<void>
+  meRefetch: () => Promise<void>;
 }
 
 export function useMe(): UseMe {
@@ -22,7 +23,7 @@ export function useMe(): UseMe {
     QUERY_KEYS.ME,
     () => authService.me(),
     {
-      initialData: {error: false, message: '' },
+      initialData: { error: false, message: '' },
       onSuccess: (received: null | MeResponseDto) => {
         console.log('useMe.onSuccess', { received });
         // TODO: save in store
@@ -39,12 +40,12 @@ export function useMe(): UseMe {
   }
 
   const meRefetch = React.useCallback(async () => {
-    await refetch()
-  }, [refetch])
+    await refetch();
+  }, [refetch]);
 
   const isLoading = React.useMemo<boolean>(() => {
-    return !data?.me?.id?.length
-  }, [data?.me?.id])
+    return !data?.me?.id?.length;
+  }, [data?.me?.id]);
 
   return { me: data?.me, updateUser, clearUser, error, isLoading, meRefetch };
 }

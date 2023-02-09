@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { WinstonModule } from 'nest-winston';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
-
-import { UserModule } from '@realiza/api/user';
-import {AuthenticationModule} from '@realiza/api/authentication'
+import { AuthenticationModule } from '@realiza/api/authentication';
 import { LoggerInterceptor, winstonConfig } from '@realiza/api/infrastructure';
+import { UserModule } from '@realiza/api/user';
+import { WinstonModule } from 'nest-winston';
 
-import { typeOrmConfig } from './typeorm.config';
 import { mailerConfig } from './mailer/mailer.config';
+import { typeOrmConfig } from './typeorm.config';
 
 @Module({
   imports: [
@@ -20,9 +19,11 @@ import { mailerConfig } from './mailer/mailer.config';
     MailerModule.forRoot(mailerConfig),
   ],
   controllers: [],
-  providers: [{
-    provide: APP_INTERCEPTOR,
-    useClass: LoggerInterceptor,
-  }],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggerInterceptor,
+    },
+  ],
 })
 export class AppModule {}
