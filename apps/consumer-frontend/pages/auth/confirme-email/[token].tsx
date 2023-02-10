@@ -9,8 +9,7 @@ import { BsShieldCheck, BsShieldLock, BsShieldX } from 'react-icons/bs';
 const ConfirmeEmail = () => {
   const router = useRouter();
   const { token } = router.query;
-  const { confirmEmailByToken, isLoading, error, data } =
-    useAuthConfirmEmailByToken();
+  const { confirmEmailByToken, isLoading, error, data } = useAuthConfirmEmailByToken();
   const [isValidToken, setIsValidToken] = useState(false);
 
   const getError = useCallback(async () => {
@@ -38,10 +37,8 @@ const ConfirmeEmail = () => {
   };
 
   const getDescribe = () => {
-    if (token === 'false')
-      return 'Para acessar nossa plataforma é preciso confirmar o seu e-mail.';
-    else if (isValidToken && !isLoading)
-      return 'Confirmado com sucesso, a plataforma está disponível para uso.';
+    if (token === 'false') return 'Para acessar nossa plataforma é preciso confirmar o seu e-mail.';
+    else if (isValidToken && !isLoading) return 'Confirmado com sucesso, a plataforma está disponível para uso.';
     else if (!isValidToken && !isLoading) return 'Token invalido';
     return '';
   };
@@ -49,56 +46,25 @@ const ConfirmeEmail = () => {
   return (
     <>
       <Menu />
-      {isLoading && <Progress size='xs' isIndeterminate />}
+      {isLoading && <Progress size="xs" isIndeterminate />}
       <WrapperScreen>
-        <WrapperAuth
-          title={isLoading ? '' : getTitle()}
-          describe={isLoading ? '' : getDescribe()}
-        >
+        <WrapperAuth title={isLoading ? '' : getTitle()} describe={isLoading ? '' : getDescribe()}>
           {isLoading ? (
-            <Flex
-              align={'center'}
-              alignItems={'center'}
-              justifyContent={'center'}
-              pb={8}
-            >
+            <Flex align={'center'} alignItems={'center'} justifyContent={'center'} pb={8}>
               <Fade in={isLoading && token !== 'false'}>
-                <CircularProgress isIndeterminate color='twitter.500' />
+                <CircularProgress color="twitter.500" isIndeterminate />
               </Fade>
             </Flex>
           ) : (
-            <Flex
-              align={'center'}
-              alignItems={'center'}
-              justifyContent={'center'}
-              pb={8}
-            >
+            <Flex align={'center'} alignItems={'center'} justifyContent={'center'} pb={8}>
               <Fade in={isValidToken && token !== 'false'}>
-                <Icon
-                  as={BsShieldCheck}
-                  w={10}
-                  h={10}
-                  color='green.500'
-                  ml={'-2rem'}
-                />
+                <Icon as={BsShieldCheck} w={10} h={10} color="green.500" ml={'-2rem'} />
               </Fade>
               <Fade in={!isValidToken && token !== 'false'}>
-                <Icon
-                  as={BsShieldX}
-                  w={10}
-                  h={10}
-                  color='red.500'
-                  ml={'-2rem'}
-                />
+                <Icon as={BsShieldX} w={10} h={10} color="red.500" ml={'-2rem'} />
               </Fade>
               <Fade in={token === 'false'}>
-                <Icon
-                  as={BsShieldLock}
-                  w={10}
-                  h={10}
-                  color='twitter.300'
-                  ml={'-2rem'}
-                />
+                <Icon as={BsShieldLock} w={10} h={10} color="twitter.300" ml={'-2rem'} />
               </Fade>
             </Flex>
           )}

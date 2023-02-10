@@ -8,10 +8,10 @@ export function SignUpPage(props: SignUpPageProps) {
   const { createUser, isLoading } = useAuthCreateUser();
   return (
     <div>
-      {isLoading && <Progress size='xs' isIndeterminate />}
+      {isLoading && <Progress size="xs" isIndeterminate />}
       <SignUp
-        title='Realiza'
-        describe='Crie a sua conta, é Grátis!'
+        title="Realiza"
+        describe="Crie a sua conta, é Grátis!"
         submitHandlerOnValid={createUser}
         isLoading={isLoading}
       />

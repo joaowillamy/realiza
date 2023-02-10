@@ -10,10 +10,23 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "paths": {
       "@realiza/api/authentication": [
         "modules/api/authentication/src/index.ts"
@@ -21,7 +34,9 @@
       "@realiza/api/infrastructure": [
         "modules/api/infrastructure/src/index.ts"
       ],
-      "@realiza/api/user": ["modules/api/user/src/index.ts"],
+      "@realiza/api/user": [
+        "modules/api/user/src/index.ts"
+      ],
       "@realiza/frontend/auth/data": [
         "modules/frontend/auth/data/src/index.ts"
       ],
@@ -37,8 +52,13 @@
       "@realiza/frontend/shared/ui-form": [
         "modules/frontend/shared/ui-form/src/index.ts"
       ],
-      "@realiza/shared/utils": ["modules/shared/utils/src/index.ts"]
+      "@realiza/shared/utils": [
+        "modules/shared/utils/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

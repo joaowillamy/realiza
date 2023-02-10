@@ -5,11 +5,11 @@ import React from 'react';
 export type ThemeProps = {
   children: React.ReactNode;
 };
-
+type ChakraTheme = typeof chakraTheme;
 const theme = extendBaseTheme({
   ...chakraTheme,
   components: { ...chakraTheme.components },
-}) as typeof chakraTheme;
+}) as ChakraTheme;
 
 export const Theme: React.FC<ThemeProps> = ({ children }) => {
   return <ChakraBaseProvider theme={theme}>{children}</ChakraBaseProvider>;

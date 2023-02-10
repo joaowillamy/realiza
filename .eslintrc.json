@@ -1,16 +1,13 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": [
-    "@nrwl/nx",
-    "@typescript-eslint",
-    "prettier",
-    "simple-import-sort"
-  ],
+  "plugins": ["@nrwl/nx", "@typescript-eslint", "prettier", "simple-import-sort"],
+
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["error"],
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
@@ -37,7 +34,15 @@
       ],
       "rules": {
         "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error"
+        "simple-import-sort/exports": "error",
+
+        "prettier/prettier": [
+          "error",
+          {
+            "singleQuote": true,
+            "parser": "typescript"
+          }
+        ]
       }
     },
     {

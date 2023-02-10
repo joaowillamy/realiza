@@ -14,20 +14,13 @@ export const useAuthConfirmEmailByToken = () => {
   const router = useRouter();
 
   const mutationRequest = React.useCallback(
-    async function mutationRequestWrapper(
-      requestData: string
-    ): Promise<CreateUserResponseDto> {
+    async function mutationRequestWrapper(requestData: string): Promise<CreateUserResponseDto> {
       return authService.confirmEmailByToken(requestData);
     },
     [authService]
   );
 
-  const mutationProperties: UseMutationOptions<
-    CreateUserResponseDto | null,
-    unknown,
-    unknown,
-    unknown
-  > = {
+  const mutationProperties: UseMutationOptions<CreateUserResponseDto | null, unknown, unknown, unknown> = {
     onSuccess(data) {
       console.log({ data });
       queryClient.invalidateQueries([QUERY_KEYS.ME]);
@@ -37,10 +30,7 @@ export const useAuthConfirmEmailByToken = () => {
     },
   };
 
-  const { mutateAsync, error, data, isLoading } = useMutation(
-    mutationRequest,
-    mutationProperties
-  );
+  const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties);
 
   const confirmEmailByToken = React.useCallback(
     async (requestData: string) => {
@@ -66,9 +56,7 @@ export const useAuthConfirmEmailByToken = () => {
               typeof result.message === 'string' ? (
                 <Text>{result.message}</Text>
               ) : (
-                result.message.map((message, index) => (
-                  <Text key={index}> - {message};</Text>
-                ))
+                result.message.map((message, index) => <Text key={index}> - {message};</Text>)
               ),
             status: 'warning',
             duration: 9000,

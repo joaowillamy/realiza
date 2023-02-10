@@ -19,11 +19,8 @@ export const defaultUserForm: InputConfig = () => ({
       configs: {
         label: 'Nome:',
         isRequired: true,
-        isInvalid:
-          formState.touchedFields[key] && Boolean(formState.errors[key]),
-        error:
-          formState.touchedFields[key] &&
-          (formState.errors[key]?.message as string),
+        isInvalid: formState.touchedFields[key] && Boolean(formState.errors[key]),
+        error: formState.touchedFields[key] && (formState.errors[key]?.message as string),
       },
       register: () => register(key as string),
     }),
@@ -37,12 +34,9 @@ export const defaultUserForm: InputConfig = () => ({
       configs: {
         label: 'E-mail:',
         isRequired: true,
-        isInvalid:
-          formState.touchedFields[key] && Boolean(formState.errors[key]),
-        error:
-          formState.touchedFields[key] &&
-          (formState.errors[key]?.message as string),
-        leftElement: <Icon as={TiMail} color='gray.500' />,
+        isInvalid: formState.touchedFields[key] && Boolean(formState.errors[key]),
+        error: formState.touchedFields[key] && (formState.errors[key]?.message as string),
+        leftElement: <Icon as={TiMail} color="gray.500" />,
       },
       register: () => register(key as string),
     }),
@@ -63,11 +57,8 @@ export const defaultUserForm: InputConfig = () => ({
       configs: {
         label: 'Senha:',
         isRequired: true,
-        isInvalid:
-          formState.touchedFields[key] && Boolean(formState.errors[key]),
-        error:
-          formState.touchedFields[key] &&
-          (formState.errors[key]?.message as string),
+        isInvalid: formState.touchedFields[key] && Boolean(formState.errors[key]),
+        error: formState.touchedFields[key] && (formState.errors[key]?.message as string),
       },
       register: () => register(key as string),
     }),
@@ -100,11 +91,8 @@ export const defaultUserForm: InputConfig = () => ({
       configs: {
         label: 'Confirme a Senha:',
         isRequired: true,
-        isInvalid:
-          formState.touchedFields[key] && Boolean(formState.errors[key]),
-        error:
-          formState.touchedFields[key] &&
-          (formState.errors[key]?.message as string),
+        isInvalid: formState.touchedFields[key] && Boolean(formState.errors[key]),
+        error: formState.touchedFields[key] && (formState.errors[key]?.message as string),
       },
       register: () => register(key as string),
     }),

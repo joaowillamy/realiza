@@ -12,11 +12,7 @@ export interface InputProps extends InputPropsChakra {
 export function Input({ id, configs, register, ...inputProps }: InputProps) {
   return (
     <InputBase id={id} {...configs}>
-      <S.Input
-        {...inputProps}
-        {...register()}
-        textIndent={configs?.leftElement ? '20px' : ''}
-      />
+      <S.Input {...inputProps} {...register()} textIndent={configs?.leftElement ? '20px' : ''} />
     </InputBase>
   );
 }

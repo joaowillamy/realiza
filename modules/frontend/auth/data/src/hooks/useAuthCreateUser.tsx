@@ -15,20 +15,13 @@ export const useAuthCreateUser = () => {
   const router = useRouter();
 
   const mutationRequest = React.useCallback(
-    async function mutationRequestWrapper(
-      requestData: CreateUserDto
-    ): Promise<CreateUserResponseDto> {
+    async function mutationRequestWrapper(requestData: CreateUserDto): Promise<CreateUserResponseDto> {
       return authService.createUser(requestData);
     },
     [authService]
   );
 
-  const mutationProperties: UseMutationOptions<
-    CreateUserResponseDto | null,
-    unknown,
-    unknown,
-    unknown
-  > = {
+  const mutationProperties: UseMutationOptions<CreateUserResponseDto | null, unknown, unknown, unknown> = {
     onSuccess(data) {
       console.log({ data });
       queryClient.invalidateQueries([QUERY_KEYS.ME]);
@@ -38,10 +31,7 @@ export const useAuthCreateUser = () => {
     },
   };
 
-  const { mutateAsync, error, data, isLoading } = useMutation(
-    mutationRequest,
-    mutationProperties
-  );
+  const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties);
 
   const createUser = React.useCallback(
     async (requestData: CreateUserDto) => {
@@ -64,9 +54,7 @@ export const useAuthCreateUser = () => {
               typeof result.message === 'string' ? (
                 <Text>{result.message}</Text>
               ) : (
-                result.message.map((message, index) => (
-                  <Text key={index}> - {message};</Text>
-                ))
+                result.message.map((message, index) => <Text key={index}> - {message};</Text>)
               ),
             status: 'warning',
             duration: 9000,

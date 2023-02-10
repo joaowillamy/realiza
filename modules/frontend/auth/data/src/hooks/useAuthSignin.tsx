@@ -17,20 +17,13 @@ export const useAuthSignin = () => {
   const authCookiesService = AuthCookiesService();
 
   const mutationRequest = React.useCallback(
-    async function mutationRequestWrapper(
-      requestData: SigninDto
-    ): Promise<SigninResponseDto> {
+    async function mutationRequestWrapper(requestData: SigninDto): Promise<SigninResponseDto> {
       return authService.signin(requestData);
     },
     [authService]
   );
 
-  const mutationProperties: UseMutationOptions<
-    SigninResponseDto | null,
-    unknown,
-    unknown,
-    unknown
-  > = {
+  const mutationProperties: UseMutationOptions<SigninResponseDto | null, unknown, unknown, unknown> = {
     onSuccess(data) {
       console.log({ data });
       queryClient.invalidateQueries([QUERY_KEYS.ME]);
@@ -40,10 +33,7 @@ export const useAuthSignin = () => {
     },
   };
 
-  const { mutateAsync, error, data, isLoading } = useMutation(
-    mutationRequest,
-    mutationProperties
-  );
+  const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties);
 
   const signin = React.useCallback(
     async (requestData: SigninDto) => {
@@ -70,9 +60,7 @@ export const useAuthSignin = () => {
               typeof result.message === 'string' ? (
                 <Text>{result.message}</Text>
               ) : (
-                result?.message?.map((message, index) => (
-                  <Text key={index}> - {message};</Text>
-                ))
+                result?.message?.map((message, index) => <Text key={index}> - {message};</Text>)
               ),
             status: 'warning',
             duration: 9000,

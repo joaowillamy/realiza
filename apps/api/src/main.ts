@@ -14,9 +14,7 @@ async function bootstrap() {
 
   const httpsOptions: HttpsOptions = {
     key: fs.readFileSync(path.join(process.cwd(), 'configs', 'ssl', 'key.pem')),
-    cert: fs.readFileSync(
-      path.join(process.cwd(), 'configs', 'ssl', 'cert.pem')
-    ),
+    cert: fs.readFileSync(path.join(process.cwd(), 'configs', 'ssl', 'cert.pem')),
   };
 
   const documentConfig = new DocumentBuilder()
@@ -55,12 +53,8 @@ async function bootstrap() {
   await app.listen(port);
 
   logger.log(`🎲 SGBD DataBase is running on: http://localhost:8080/`);
-  logger.log(
-    `📚 Documentation is running on: https://localhost:${port}/${docPrefix}`
-  );
-  logger.log(
-    `🚀 Application is running on: https://localhost:${port}/${globalPrefix}`
-  );
+  logger.log(`📚 Documentation is running on: https://localhost:${port}/${docPrefix}`);
+  logger.log(`🚀 Application is running on: https://localhost:${port}/${globalPrefix}`);
   logger.log(`isDevelopment: ${backendEnvs.isDevelopment}`);
 }
 
