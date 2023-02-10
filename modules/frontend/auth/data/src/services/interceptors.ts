@@ -21,12 +21,18 @@ export function configAxiosInstance(instance: AxiosInstance) {
   return instance;
 }
 
-export function handleAxiosError(functionName: string, error: Error) {
-  console.warn(`[API] AuthService.${functionName}`, error);
-}
-
-export function handleUnexpectedError(functionName: string, error: Error) {
-  const message = `[JS] AuthService.${functionName}`;
-  console.error(message, error);
-  return Error(message);
+export function Log(context: string) {
+  return {
+    apiError(functionName: string, error: Error) {
+      console.warn(
+        `[API] ${context}.${functionName} : ${error.name} - ${error.message} \n\n${error.stack}\n\n`,
+        error
+      );
+    },
+    unexpectedError(functionName: string, error: Error) {
+      const message = `[JS] AuthService.${functionName} : ${error.name} - ${error.message} \n\n${error.stack}`;
+      console.error(message, error);
+      return Error(message);
+    },
+  };
 }

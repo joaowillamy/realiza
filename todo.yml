@@ -1,17 +1,5 @@
 frontend:
-  logout
-    /fetch ok
-    /mutation ok
-  me
-    route service ok
-    query
-    useeffect in private
-
   adicionar um try catch no proxy
-
-  Esqueceu a senha -> digite seu email
-  Recuperar senha ->  confirme senha
-
   Google auth
 
   Estudar sobre:
