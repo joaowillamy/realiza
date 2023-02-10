@@ -1,30 +1,49 @@
 import * as bcrypt from 'bcrypt';
-import { BaseEntity, Entity, Unique } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 @Unique(['email'])
 export class User extends BaseEntity {
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  email: string;
+  @Column({ nullable: false, type: 'varchar', length: 200 })
+  email!: string;
 
-  name: string;
+  @Column({ nullable: false, type: 'varchar', length: 200 })
+  name!: string;
 
-  role: string;
+  @Column({ nullable: false, type: 'varchar', length: 20 })
+  role!: string;
 
-  status: boolean;
+  @Column({ nullable: false, default: true })
+  status!: boolean;
 
-  password: string;
+  @Column({ nullable: false })
+  password!: string;
 
-  salt: string;
+  @Column({ nullable: false })
+  salt!: string;
 
-  confirmationToken: string;
+  @Column({ nullable: true, type: 'varchar', length: 64 })
+  confirmationToken?: string;
 
-  recoverToken: string;
+  @Column({ nullable: true, type: 'varchar', length: 64 })
+  recoverToken?: string;
 
-  createdAt: Date;
+  @CreateDateColumn()
+  createdAt!: Date;
 
-  updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt!: Date;
 
   async checkPassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);

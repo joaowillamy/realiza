@@ -1,6 +1,5 @@
 {
   "singleQuote": true,
-  "endOfLine": "lf",
   "printWidth": 120,
   "parser": "typescript"
 }
