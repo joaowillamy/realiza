@@ -1,10 +1,4 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  Inject,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
+import { CallHandler, ExecutionContext, Inject, Injectable, NestInterceptor, Request } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Logger } from 'winston';
 
@@ -17,7 +11,7 @@ export class LoggerInterceptor implements NestInterceptor {
     return next.handle();
   }
 
-  private log(req) {
+  private log(req: { body: any; method: any; route: { path: any }; query: any; params: any; ip: any }) {
     const body = { ...req.body };
     delete body.password;
     delete body.passwordConfirmation;

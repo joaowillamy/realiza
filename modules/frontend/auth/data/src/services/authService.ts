@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import { CreateUserDto } from '../dto/createUserDto';
 import { CreateUserResponseDto } from '../dto/createUserResponseDto';
@@ -13,24 +13,15 @@ import { Log } from './interceptors';
 export function AuthService() {
   const log = Log('AuthService');
 
-  const createUser = async (
-    user: CreateUserDto
-  ): Promise<CreateUserResponseDto> => {
+  const createUser = async (user: CreateUserDto): Promise<CreateUserResponseDto> => {
     try {
-      const response = await serviceInstance.post<CreateUserResponseDto>(
-        '/signup',
-        user
-      );
+      const response = await serviceInstance.post<CreateUserResponseDto>('/signup', user);
       return {
         error: false,
         message: response.data.message,
       };
     } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status &&
-        error.response?.data?.message
-      ) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
         log.apiError('createUser', error);
         return {
           error: true,
@@ -42,23 +33,15 @@ export function AuthService() {
     }
   };
 
-  const confirmEmailByToken = async (
-    token: string
-  ): Promise<DefaultResponseDto> => {
+  const confirmEmailByToken = async (token: string): Promise<DefaultResponseDto> => {
     try {
-      const response = await serviceInstance.patch<DefaultResponseDto>(
-        `/${token}`
-      );
+      const response = await serviceInstance.patch<DefaultResponseDto>(`/${token}`);
       return {
         error: false,
         message: response.data.message,
       };
     } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status &&
-        error.response?.data?.message
-      ) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
         log.apiError('confirmEmailByToken', error);
         return {
           error: true,
@@ -72,21 +55,14 @@ export function AuthService() {
 
   const signin = async (user: SigninDto): Promise<SigninResponseDto> => {
     try {
-      const response = await serviceInstance.post<SigninResponseDto>(
-        `/signin`,
-        user
-      );
+      const response = await serviceInstance.post<SigninResponseDto>(`/signin`, user);
       return {
         token: response.data.token,
         error: false,
         message: response.data.message,
       };
     } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status &&
-        error.response?.data?.message
-      ) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
         log.apiError('signin', error);
         return {
           error: true,
@@ -100,9 +76,7 @@ export function AuthService() {
 
   const me = async (): Promise<MeResponseDto> => {
     try {
-      const response = await serviceProxyInstance.get<MeDto>(
-        `/authentication/me`
-      );
+      const response = await serviceProxyInstance.get<MeDto>(`/authentication/me`);
 
       return {
         me: response.data,
@@ -110,11 +84,7 @@ export function AuthService() {
         message: 'Sucesso',
       };
     } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status &&
-        error.response?.data?.message
-      ) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
         log.apiError('me', error);
         return {
           error: true,

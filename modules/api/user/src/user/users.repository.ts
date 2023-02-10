@@ -1,11 +1,5 @@
-import {
-  ConflictException,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import {
-  baseQueryBuilder,
-  CustomRepository,
-} from '@realiza/api/infrastructure';
+import { ConflictException, InternalServerErrorException } from '@nestjs/common';
+import { baseQueryBuilder, CustomRepository } from '@realiza/api/infrastructure';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { Repository } from 'typeorm';
@@ -42,13 +36,7 @@ export class UserRepository extends Repository<User> {
       query.andWhere('user.role = :role', { role });
     }
 
-    query.select([
-      'user.id',
-      'user.name',
-      'user.email',
-      'user.role',
-      'user.status',
-    ]);
+    query.select(['user.id', 'user.name', 'user.email', 'user.role', 'user.status']);
 
     baseQueryBuilder<User>(query, sort, page, limit);
 
@@ -57,10 +45,7 @@ export class UserRepository extends Repository<User> {
     return { users, total };
   }
 
-  async createUser(
-    createUserDto: CreateUserDto,
-    role: UserRole
-  ): Promise<User> {
+  async createUser(createUserDto: CreateUserDto, role: UserRole): Promise<User> {
     const { email, name, password } = createUserDto;
 
     const user = this.create();
@@ -81,12 +66,10 @@ export class UserRepository extends Repository<User> {
       // 23505	unique_violation
       // For more information: https://www.postgresql.org/docs/10/errcodes-appendix.html
       const postgreErrorCodeUniqueViolation = '23505';
-      if (error.code.toString() === postgreErrorCodeUniqueViolation) {
+      if ((error as Error).code.toString() === postgreErrorCodeUniqueViolation) {
         throw new ConflictException('Endereço de email já está em uso');
       } else {
-        throw new InternalServerErrorException(
-          'Erro ao salvar o usuário no banco de dados'
-        );
+        throw new InternalServerErrorException('Erro ao salvar o usuário no banco de dados');
       }
     }
   }

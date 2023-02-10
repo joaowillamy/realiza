@@ -1,12 +1,4 @@
-import {
-  Button,
-  Divider,
-  Flex,
-  HStack,
-  LinkBox,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Button, Divider, Flex, HStack, LinkBox, Stack, Text } from '@chakra-ui/react';
 import { CreateUserDto } from '@realiza/api/user';
 import {
   defaultUserForm,
@@ -55,15 +47,12 @@ export function SignUp({
       <WrapperAuth
         title={title}
         describe={describe}
-        onSubmit={handleSubmit(
-          submitHandlerOnValid,
-          SubmitErrorHandlerOnInvalid
-        )}
+        onSubmit={handleSubmit(submitHandlerOnValid, SubmitErrorHandlerOnInvalid)}
         subDescribe={
           <Flex justifyContent={'center'} align={'center'}>
             <Text color={'gray.500'}>Já possui um conta?</Text>
             <LinkBox ml={1} as={NextLink} href={'/auth/sign-in'}>
-              <Button tabIndex={-1} color='twitter.300' variant='unstyled'>
+              <Button tabIndex={-1} color="twitter.300" variant="unstyled">
                 Entrar
               </Button>
             </LinkBox>
@@ -77,18 +66,13 @@ export function SignUp({
           <Password {...inputs.passwordConfirmation()} isDisabled={isLoading} />
         </Flex>
 
-        <Button
-          mt={4}
-          colorScheme='twitter'
-          isLoading={formState.isSubmitting}
-          type='submit'
-        >
+        <Button mt={4} colorScheme="twitter" isLoading={formState.isSubmitting} type="submit">
           Cadastrar
         </Button>
-        <Stack spacing='6'>
+        <Stack spacing="6">
           <HStack>
             <Divider />
-            <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
+            <Text fontSize="sm" whiteSpace="nowrap" color="muted">
               Ou
             </Text>
             <Divider />

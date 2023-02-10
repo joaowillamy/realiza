@@ -1,7 +1,4 @@
-import {
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -59,18 +56,13 @@ describe('UserService', () => {
       (userRepository.createUser as jest.Mock).mockResolvedValue('mockUser');
       const result = await service.createAdminUser(mockCreateUserDto);
 
-      expect(userRepository.createUser).toHaveBeenCalledWith(
-        mockCreateUserDto,
-        UserRole.ADMIN
-      );
+      expect(userRepository.createUser).toHaveBeenCalledWith(mockCreateUserDto, UserRole.ADMIN);
       expect(result).toEqual('mockUser');
     });
 
     it('should throw an error if passwords doesnt match', async () => {
       mockCreateUserDto.passwordConfirmation = 'wrongPassword';
-      expect(service.createAdminUser(mockCreateUserDto)).rejects.toThrow(
-        UnprocessableEntityException
-      );
+      expect(service.createAdminUser(mockCreateUserDto)).rejects.toThrow(UnprocessableEntityException);
     });
   });
 
@@ -111,9 +103,7 @@ describe('UserService', () => {
 
   describe('findUsers', () => {
     it('should call the findUsers method of the userRepository', async () => {
-      (userRepository.findUsers as jest.Mock).mockResolvedValue(
-        'resultOfsearch'
-      );
+      (userRepository.findUsers as jest.Mock).mockResolvedValue('resultOfsearch');
       const mockFindUsersQueryDto: FindUsersQueryDto = {
         name: '',
         email: '',
@@ -124,9 +114,7 @@ describe('UserService', () => {
         status: true,
       };
       const result = await service.findUsers(mockFindUsersQueryDto);
-      expect(userRepository.findUsers).toHaveBeenCalledWith(
-        mockFindUsersQueryDto
-      );
+      expect(userRepository.findUsers).toHaveBeenCalledWith(mockFindUsersQueryDto);
       expect(result).toEqual('resultOfsearch');
     });
   });
@@ -145,9 +133,7 @@ describe('UserService', () => {
     it('should throw an error if no row is affected in the DB', async () => {
       (userRepository.update as jest.Mock).mockResolvedValue({ affected: 0 });
 
-      expect(service.updateUser({} as UpdateUserDto, 'mockId')).rejects.toThrow(
-        NotFoundException
-      );
+      expect(service.updateUser({} as UpdateUserDto, 'mockId')).rejects.toThrow(NotFoundException);
     });
   });
 });

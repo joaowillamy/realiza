@@ -10,19 +10,12 @@ export const Quotee = (props: Props) => {
   const { name, jobTitle, imageSrc, ...boxProps } = props;
   return (
     <Box {...boxProps}>
-      <Img
-        src={imageSrc}
-        mx='auto'
-        objectFit='cover'
-        w='16'
-        h='16'
-        rounded='full'
-      />
-      <Box mt='3'>
-        <Text as='cite' fontStyle='normal' fontWeight='bold'>
+      <Img src={imageSrc} mx="auto" objectFit="cover" w="16" h="16" rounded="full" />
+      <Box mt="3">
+        <Text as="cite" fontStyle="normal" fontWeight="bold">
           {name}
         </Text>
-        <Text fontSize='sm' color='gray.500'>
+        <Text fontSize="sm" color="gray.500">
           {jobTitle}
         </Text>
       </Box>

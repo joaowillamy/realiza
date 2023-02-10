@@ -12,13 +12,7 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   ChangePasswordDto,
   CreateUserDto,
@@ -39,10 +33,7 @@ import { RolesGuard } from './guards/roles.guard';
 
 @Controller('authentication')
 export class AuthenticationController {
-  constructor(
-    private usersService: UserService,
-    private authenticationService: AuthenticationService
-  ) {}
+  constructor(private usersService: UserService, private authenticationService: AuthenticationService) {}
 
   @ApiTags('Auth')
   @ApiOperation({ summary: 'Create user' })
@@ -50,9 +41,7 @@ export class AuthenticationController {
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 409, description: 'Conflict.' })
   @Post('/signup')
-  async signUp(
-    @Body(ValidationPipe) createUserDto: CreateUserDto
-  ): Promise<{ message: string }> {
+  async signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<{ message: string }> {
     await this.authenticationService.signUp(createUserDto);
     return {
       message: 'Cadastro realizado com sucesso',
@@ -63,9 +52,7 @@ export class AuthenticationController {
   @Post('/signin')
   @ApiResponse({ status: 200, description: 'sign' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async signIn(
-    @Body(ValidationPipe) credentiaslsDto: CredentialsDto
-  ): Promise<{ token: string }> {
+  async signIn(@Body(ValidationPipe) credentiaslsDto: CredentialsDto): Promise<{ token: string }> {
     return await this.authenticationService.signIn(credentiaslsDto);
   }
 
@@ -81,15 +68,9 @@ export class AuthenticationController {
   @ApiTags('Auth')
   @Patch('/me/:id')
   @UseGuards(JwtAuthGuard)
-  async updateUser(
-    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
-    @GetUser() user: User,
-    @Param('id') id: string
-  ) {
+  async updateUser(@Body(ValidationPipe) updateUserDto: UpdateUserDto, @GetUser() user: User, @Param('id') id: string) {
     if (user.role != UserRole.ADMIN && user.id.toString() != id) {
-      throw new ForbiddenException(
-        'Você não tem autorização para acessar esse recurso'
-      );
+      throw new ForbiddenException('Você não tem autorização para acessar esse recurso');
     } else {
       return this.usersService.updateUser(updateUserDto, id);
     }
@@ -109,9 +90,7 @@ export class AuthenticationController {
   @ApiTags('Auth')
   @Post('/send-recover-email')
   @ApiBody({ schema: { example: { email: 'will@gmail.com' } } })
-  async sendRecoverPasswordEmail(
-    @Body('email') email: string
-  ): Promise<{ message: string }> {
+  async sendRecoverPasswordEmail(@Body('email') email: string): Promise<{ message: string }> {
     await this.authenticationService.sendRecoverPasswordEmail(email);
     return {
       message: 'Foi enviado um email com instruções para resetar sua senha',
@@ -140,9 +119,7 @@ export class AuthenticationController {
     @GetUser() user: User
   ) {
     if (user.role !== UserRole.ADMIN && user.id.toString() !== id)
-      throw new UnauthorizedException(
-        'Você não tem permissão para realizar esta operação'
-      );
+      throw new UnauthorizedException('Você não tem permissão para realizar esta operação');
 
     await this.authenticationService.changePassword(id, changePasswordDto);
     return {
@@ -155,9 +132,7 @@ export class AuthenticationController {
   @Post('/admin/signup')
   @Role(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async createAdminUser(
-    @Body(ValidationPipe) createUserDto: CreateUserDto
-  ): Promise<ReturnUserDto> {
+  async createAdminUser(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<ReturnUserDto> {
     const user = await this.usersService.createAdminUser(createUserDto);
     return {
       user,

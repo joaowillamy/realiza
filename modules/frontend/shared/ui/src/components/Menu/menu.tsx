@@ -37,34 +37,27 @@ export function Menu(props: MenuProps) {
 
   return (
     <Flex backgroundColor={'gray.50'} flexDirection={'column'}>
-      <Box
-        p={5}
-        mb={2}
-        backgroundColor={'white'}
-        borderWidth='1px'
-        borderBottomRadius='2xl'
-        shadow={'md'}
-      >
-        <Container maxW='7xl'>
-          <Flex align='center' justifyContent={'space-between'}>
-            <Heading color='twitter.600'>Realiza</Heading>
+      <Box p={5} mb={2} backgroundColor={'white'} borderWidth="1px" borderBottomRadius="2xl" shadow={'md'}>
+        <Container maxW="7xl">
+          <Flex align="center" justifyContent={'space-between'}>
+            <Heading color="twitter.600">Realiza</Heading>
             {isDesktop ? (
-              <Flex justify='space-between' flex='1'>
-                <ButtonGroup ml={10} variant='link' spacing='8'>
+              <Flex justify="space-between" flex="1">
+                <ButtonGroup ml={10} variant="link" spacing="8">
                   {['Home', 'Blog'].map((item) => (
                     <Button key={item}>{item}</Button>
                   ))}
                 </ButtonGroup>
 
-                <HStack spacing='3'>
+                <HStack spacing="3">
                   <LinkBox as={NextLink} href={'/auth/sign-up'}>
                     <Button
                       tabIndex={-1}
                       mr={4}
-                      color='twitter.400'
+                      color="twitter.400"
                       isLoading={isLoadingButton('create')}
                       onClick={() => onClick('create')}
-                      variant='unstyled'
+                      variant="unstyled"
                     >
                       Cadastre-se
                     </Button>
@@ -72,7 +65,7 @@ export function Menu(props: MenuProps) {
                   <LinkBox as={NextLink} href={'/auth/sign-in'}>
                     <Button
                       tabIndex={-1}
-                      colorScheme='twitter'
+                      colorScheme="twitter"
                       isLoading={isLoadingButton('login')}
                       onClick={() => onClick('login')}
                     >
@@ -82,11 +75,7 @@ export function Menu(props: MenuProps) {
                 </HStack>
               </Flex>
             ) : (
-              <IconButton
-                variant='ghost'
-                icon={<FiMenu fontSize='1.25rem' />}
-                aria-label='Open Menu'
-              />
+              <IconButton variant="ghost" icon={<FiMenu fontSize="1.25rem" />} aria-label="Open Menu" />
             )}
           </Flex>
         </Container>

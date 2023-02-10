@@ -1,6 +1,4 @@
 import { render } from '@testing-library/react';
-import React from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 
 import Password from './password';
 

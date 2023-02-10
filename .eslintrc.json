@@ -1,12 +1,8 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": [
-    "@nrwl/nx",
-    "@typescript-eslint",
-    "prettier",
-    "simple-import-sort"
-  ],
+  "plugins": ["@nrwl/nx", "@typescript-eslint", "prettier", "simple-import-sort"],
+
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -39,15 +35,12 @@
       "rules": {
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
-        "react/jsx-sort-props": [
+
+        "prettier/prettier": [
           "error",
           {
-            "callbacksLast": false,
-            "ignoreCase": true,
-            "noSortAlphabetically": true,
-            "reservedFirst": true,
-            "shorthandFirst": false,
-            "shorthandLast": true
+            "singleQuote": true,
+            "parser": "typescript"
           }
         ]
       }
