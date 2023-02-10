@@ -50,9 +50,7 @@ export function ConfirmePassword({
           submitHandlerOnValid,
           SubmitErrorHandlerOnInvalid
         )}
-        subDescribe={
-          <Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>
-        }
+        subDescribe={<Text color={'gray.500'}>Escolha sua nova senha</Text>}
       >
         <Password {...inputs.password()} />
         <Password {...inputs.passwordConfirmation()} />

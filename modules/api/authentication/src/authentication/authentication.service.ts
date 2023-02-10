@@ -95,7 +95,7 @@ export class AuthenticationService {
       template: 'recover-password',
       context: {
         name: this.getUserName(user.name),
-        link: `${backendEnvs.frontendUrl}/${user.recoverToken}`,
+        link: `${backendEnvs.frontendUrl}/auth/confirme-password/${user.recoverToken}`,
       },
     };
 

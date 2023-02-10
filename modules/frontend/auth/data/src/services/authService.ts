@@ -97,6 +97,32 @@ export function AuthService() {
     }
   };
 
+  const sendRecoverPasswordEmail = async (email: string) => {
+    try {
+      console.log(`este é o e-mail: ${JSON.stringify(email)}`);
+      const response = await serviceInstance.post(`/send-recover-email`, email);
+      return {
+        token: response.data.token,
+        error: false,
+        message: response.data.message,
+      };
+    } catch (error) {
+      if (
+        axios.isAxiosError(error) &&
+        error.response?.status &&
+        error.response?.data?.message
+      ) {
+        handleAxiosError('sendRecoverPasswordEmail', error);
+        return {
+          error: true,
+          message: error.response.data.message,
+        };
+      }
+
+      throw handleUnexpectedError('sendRecoverPasswordEmail', error as Error);
+    }
+  };
+
   const me = async (): Promise<MeResponseDto> => {
     try {
       const response = await serviceProxyInstance.get<MeDto>(
@@ -125,7 +151,13 @@ export function AuthService() {
     }
   };
 
-  return { createUser, confirmEmailByToken, signin, me };
+  return {
+    createUser,
+    confirmEmailByToken,
+    signin,
+    sendRecoverPasswordEmail,
+    me,
+  };
 }
 
 export default AuthService;

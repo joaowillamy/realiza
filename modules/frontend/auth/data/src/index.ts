@@ -3,6 +3,7 @@ export * from './dto/SigninDto';
 export * from './hooks/useAuthConfirmEmailByToken';
 export * from './hooks/useAuthCreateUser';
 export * from './hooks/useAuthLogout';
+export * from './hooks/useAuthSendRecoverPasswordEmail';
 export * from './hooks/useAuthSignin';
 export * from './hooks/useMe';
 export * from './services/authCookiesService';

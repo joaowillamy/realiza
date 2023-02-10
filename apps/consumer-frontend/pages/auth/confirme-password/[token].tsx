@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
+import { ConfirmePassword as ConfirmPasswordComponent } from '../../../../../modules/frontend/auth/feature/src/pages/confirme-password';
 
 const ConfirmePassword = () => {
   const router = useRouter();
   const { token } = router.query;
 
-  return <p>ConfirmePassword: {token}</p>;
+  return <ConfirmPasswordComponent />;
 };
 
 export default ConfirmePassword;
