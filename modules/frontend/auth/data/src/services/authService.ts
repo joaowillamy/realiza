@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import { CreateUserDto } from '../dto/createUserDto';
 import { CreateUserResponseDto } from '../dto/createUserResponseDto';
@@ -72,27 +72,6 @@ export function AuthService() {
       }
 
       throw log.unexpectedError('signin', error as Error);
-    }
-  };
-
-  const sendRecoverPasswordEmail = async (email: SendEmailDto): Promise<DefaultResponseDto> => {
-    try {
-      const response = await serviceInstance.post(`/send-recover-email`, email);
-      return {
-        // token: response.data.token,
-        error: false,
-        message: response.data.message,
-      };
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
-        handleAxiosError('sendRecoverPasswordEmail', error);
-        return {
-          error: true,
-          message: error.response.data.message,
-        };
-      }
-
-      throw handleUnexpectedError('sendRecoverPasswordEmail', error as Error);
     }
   };
 

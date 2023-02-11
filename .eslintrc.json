@@ -3,10 +3,13 @@
   "ignorePatterns": ["**/*"],
   "plugins": ["@nrwl/nx", "@typescript-eslint", "prettier", "simple-import-sort"],
 
+  "plugins": ["@nrwl/nx", "@typescript-eslint", "prettier", "simple-import-sort"],
+
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["error"],
         "@typescript-eslint/explicit-function-return-type": ["error"],
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
