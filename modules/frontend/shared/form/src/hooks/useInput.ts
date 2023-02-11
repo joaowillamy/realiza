@@ -1,12 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputProps } from '@realiza/frontend/shared/ui-form';
 import React from 'react';
-import {
-  FormState,
-  Resolver,
-  UseFormRegister,
-  ValidationMode,
-} from 'react-hook-form';
+import { FormState, Resolver, UseFormRegister, ValidationMode } from 'react-hook-form';
 import * as yup from 'yup';
 
 export type InputConfig<FormData> = {
@@ -35,8 +30,7 @@ export function useGetInputs<FormData>(
     return Object.entries(formConfig).reduce(
       (acc, [functionName, config]) => ({
         ...acc,
-        [functionName]: (): InputProps =>
-          (config as FormConfigValue<FormData>).getInputConfig(inputsConfig),
+        [functionName]: (): InputProps => (config as FormConfigValue<FormData>).getInputConfig(inputsConfig),
       }),
       {} as GetInputs<FormData>
     );

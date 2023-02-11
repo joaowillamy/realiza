@@ -4,7 +4,6 @@ import React from 'react';
 import { useMutation, UseMutationOptions, useQueryClient } from 'react-query';
 
 import { QUERY_KEYS } from '../constants/querykes';
-import { SigninDto } from '../dto/SigninDto';
 import { AuthCookiesService } from '../services/authCookiesService';
 
 export const useAuthLogout = () => {
@@ -30,10 +29,7 @@ export const useAuthLogout = () => {
     },
   };
 
-  const { mutateAsync, error, isLoading } = useMutation(
-    mutationRequest,
-    mutationProperties
-  );
+  const { mutateAsync, error, isLoading } = useMutation(mutationRequest, mutationProperties);
 
   const logout = React.useCallback(async () => {
     try {

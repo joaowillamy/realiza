@@ -21,9 +21,7 @@ const getToken = async (req: NextApiRequest, res: NextApiResponse) => {
   const { url, ...queries } = req.query;
 
   const formattedUrl = Array.isArray(url) ? url.join('/') : url;
-  const authorization = req?.cookies?.tokenHttpOnly
-    ? { Authorization: `Bearer ${req?.cookies?.tokenHttpOnly}` }
-    : {};
+  const authorization = req?.cookies?.tokenHttpOnly ? { Authorization: `Bearer ${req?.cookies?.tokenHttpOnly}` } : {};
 
   const response = await axiosInstance({
     url: `${frontendEnvs.apiBaseUrl}/${formattedUrl}`,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
 import { QUERY_KEYS } from '../constants/querykes';
@@ -19,17 +19,13 @@ export function useMe(): UseMe {
   const queryClient = useQueryClient();
   const authService = AuthService();
 
-  const { data, error, refetch } = useQuery<MeResponseDto>(
-    QUERY_KEYS.ME,
-    () => authService.me(),
-    {
-      initialData: { error: false, message: '' },
-      onSuccess: (received: null | MeResponseDto) => {
-        console.log('useMe.onSuccess', { received });
-        // TODO: save in store
-      },
-    }
-  );
+  const { data, error, refetch } = useQuery<MeResponseDto>(QUERY_KEYS.ME, () => authService.me(), {
+    initialData: { error: false, message: '' },
+    onSuccess: (received: null | MeResponseDto) => {
+      console.log('useMe.onSuccess', { received });
+      // TODO: save in store
+    },
+  });
 
   function updateUser(newUser: MeResponseDto): void {
     queryClient.setQueryData(QUERY_KEYS.ME, newUser);

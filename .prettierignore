@@ -2,3 +2,10 @@
 
 /dist
 /coverage
+.eslintrc.json
+extensions.json
+settings.json
+tsconfig.base.json
+tsconfig.json
+package.json
+nx.json

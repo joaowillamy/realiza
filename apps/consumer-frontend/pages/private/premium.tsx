@@ -32,31 +32,19 @@ const PremiumPassword = ({ data }) => {
 
   return (
     <Center py={6}>
-      <Box
-        maxW={'270px'}
-        w={'full'}
-        bg={colorModeValue}
-        boxShadow={'2xl'}
-        rounded={'md'}
-        overflow={'hidden'}
-      >
+      <Box maxW={'270px'} w={'full'} bg={colorModeValue} boxShadow={'2xl'} rounded={'md'} overflow={'hidden'}>
         <Image
           h={'120px'}
           w={'full'}
           src={
             'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
           }
-          alt=''
+          alt=""
           objectFit={'cover'}
         />
         <Flex justify={'center'} mt={-12}>
           <Fade in={isLoadingMe} unmountOnExit={true}>
-            <SkeletonCircle
-              size='20'
-              ml={'24'}
-              p={0}
-              isLoaded={!isLoadingMe}
-            ></SkeletonCircle>
+            <SkeletonCircle size="20" ml={'24'} p={0} isLoaded={!isLoadingMe}></SkeletonCircle>
           </Fade>
           <Fade in={!isLoadingMe} delay={0.5}>
             <Avatar
@@ -73,12 +61,8 @@ const PremiumPassword = ({ data }) => {
 
         <Box p={6}>
           <Fade in={isLoadingMe} unmountOnExit={true}>
-            {isLoadingMe && (
-              <Skeleton height={'25px'} m={1} isLoaded={!isLoadingMe} />
-            )}
-            {isLoadingMe && (
-              <Skeleton height={'15px'} m={1} isLoaded={!isLoadingMe} />
-            )}
+            {isLoadingMe && <Skeleton height={'25px'} m={1} isLoaded={!isLoadingMe} />}
+            {isLoadingMe && <Skeleton height={'15px'} m={1} isLoaded={!isLoadingMe} />}
           </Fade>
 
           <Fade in={!isLoadingMe} delay={0.4}>

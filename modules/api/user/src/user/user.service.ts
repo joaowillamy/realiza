@@ -50,24 +50,18 @@ export class UserService {
       await user.save();
       return user;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'Erro ao salvar os dados no banco de dados'
-      );
+      throw new InternalServerErrorException('Erro ao salvar os dados no banco de dados');
     }
   }
 
   async deleteUser(userId: string) {
     const result = await this.userRepository.delete({ id: userId });
     if (result.affected === 0) {
-      throw new NotFoundException(
-        'Não foi encontrado um usuário com o ID informado'
-      );
+      throw new NotFoundException('Não foi encontrado um usuário com o ID informado');
     }
   }
 
-  async findUsers(
-    queryDto: FindUsersQueryDto
-  ): Promise<{ users: User[]; total: number }> {
+  async findUsers(queryDto: FindUsersQueryDto): Promise<{ users: User[]; total: number }> {
     const users = await this.userRepository.findUsers(queryDto);
     return users;
   }

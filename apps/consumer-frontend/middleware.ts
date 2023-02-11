@@ -1,4 +1,3 @@
-import { frontendEnvs } from '@realiza/shared/utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
@@ -9,9 +8,7 @@ export async function middleware(request: NextRequest) {
   if (pathname.match(/private/gi) && !isAuthenticated) {
     const pathname = 'auth/sign-in';
     const { protocol, host } = request.nextUrl;
-    const url = new URL(
-      `${protocol}//${host}/${pathname}?message-error=Sem altorização, antes entre em sua conta!`
-    );
+    const url = new URL(`${protocol}//${host}/${pathname}?message-error=Sem altorização, antes entre em sua conta!`);
     return NextResponse.redirect(url);
   }
 
@@ -19,9 +16,7 @@ export async function middleware(request: NextRequest) {
   if (pathname.match(/auth\//gi) && isAuthenticated) {
     const pathname = 'private/premium';
     const { protocol, host } = request.nextUrl;
-    const url = new URL(
-      `${protocol}//${host}/${pathname}?message-info=Já possui um usuário autenticado!`
-    );
+    const url = new URL(`${protocol}//${host}/${pathname}?message-info=Já possui um usuário autenticado!`);
     return NextResponse.redirect(url);
   }
 }

@@ -1,4 +1,4 @@
-import { Button, Flex, LinkBox, Text } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import {
   defaultUserForm,
   FormConfig,
@@ -7,7 +7,6 @@ import {
   useGetInputs,
 } from '@realiza/frontend/shared/form';
 import { Password } from '@realiza/frontend/shared/ui-form';
-import NextLink from 'next/link';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
 import { WrapperAuth } from '../components/WrapperAuth/wrapperAuth';
@@ -46,21 +45,13 @@ export function ConfirmePassword({
       <WrapperAuth
         title={title}
         describe={describe}
-        onSubmit={handleSubmit(
-          submitHandlerOnValid,
-          SubmitErrorHandlerOnInvalid
-        )}
-        subDescribe={<Text color={'gray.500'}>Escolha sua nova senha</Text>}
+        onSubmit={handleSubmit(submitHandlerOnValid, SubmitErrorHandlerOnInvalid)}
+        subDescribe={<Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>}
       >
         <Password {...inputs.password()} />
         <Password {...inputs.passwordConfirmation()} />
 
-        <Button
-          mt={4}
-          colorScheme='twitter'
-          isLoading={formState.isSubmitting}
-          type='submit'
-        >
+        <Button mt={4} colorScheme="twitter" isLoading={formState.isSubmitting} type="submit">
           Enviar
         </Button>
       </WrapperAuth>
