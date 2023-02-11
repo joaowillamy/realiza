@@ -50,7 +50,7 @@ export function ConfirmePassword({
       >
         <Password {...inputs.password()} />
         <Password {...inputs.passwordConfirmation()} />
-
+        <p>teste</p>
         <Button mt={4} colorScheme="twitter" isLoading={formState.isSubmitting} type="submit">
           Enviar
         </Button>
