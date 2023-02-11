@@ -74,7 +74,7 @@ nx generate @nrwl/react:component-story --componentPath=pages/auth/confirme-emai
 
 ## Configure your Story project using TypeScript
 ```
-nx generate @nrwl/react:storybook-configuration <project-name> --bundler=webpack --configureTestRunner --no-generateCypressSpecs --tsConfiguration
+nx generate @nrwl/react:storybook-configuration consumer-frontend --bundler=webpack --configureTestRunner --no-generateCypressSpecs --tsConfiguration
 ```
 
 ## Grouping modules:
