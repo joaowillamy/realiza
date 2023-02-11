@@ -26,6 +26,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": true,
+    "composite": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@realiza/api/authentication": [
