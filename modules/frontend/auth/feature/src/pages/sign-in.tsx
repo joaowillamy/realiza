@@ -13,7 +13,7 @@ import NextLink from 'next/link';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { WrapperAuth } from '../components/WrapperAuth/wrapperAuth';
+import { WrapperAuth } from '../components/WrapperAuth/WrapperAuth';
 import WrapperScreen from '../components/WrapperScreen/WrapperScreen';
 
 const userForm = defaultUserForm<SigninDto>();
