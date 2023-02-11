@@ -4,6 +4,9 @@ import React from 'react';
 import { useMutation, UseMutationOptions, useQueryClient } from 'react-query';
 
 import { QUERY_KEYS } from '../constants/querykes';
+import { CreateUserResponseDto } from '../dto/createUserResponseDto';
+import { DefaultResponseDto } from '../dto/DefaultResponseDto';
+import { SendEmailDto } from '../dto/sendEmailDto';
 import AuthService from '../services/authService';
 
 export const useAuthSendRecoverPasswordEmail = () => {
@@ -13,18 +16,13 @@ export const useAuthSendRecoverPasswordEmail = () => {
   const router = useRouter();
 
   const mutationRequest = React.useCallback(
-    async function mutationRequestWrapper(requestData: string) {
+    async function mutationRequestWrapper(requestData: SendEmailDto): Promise<DefaultResponseDto> {
       return authService.sendRecoverPasswordEmail(requestData);
     },
     [authService]
   );
 
-  const mutationProperties: UseMutationOptions<
-    CreateUserResponseDto | null,
-    unknown,
-    unknown,
-    unknown
-  > = {
+  const mutationProperties: UseMutationOptions<CreateUserResponseDto | null, unknown, unknown, unknown> = {
     onSuccess(data) {
       console.log({ data });
       queryClient.invalidateQueries([QUERY_KEYS.ME]);
@@ -34,13 +32,10 @@ export const useAuthSendRecoverPasswordEmail = () => {
     },
   };
 
-  const { mutateAsync, error, data, isLoading } = useMutation(
-    mutationRequest,
-    mutationProperties
-  );
+  const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties);
 
   const sendRecoverPasswordEmail = React.useCallback(
-    async (requestData: string) => {
+    async (requestData: SendEmailDto) => {
       try {
         const result = await mutateAsync(requestData);
 
@@ -63,9 +58,7 @@ export const useAuthSendRecoverPasswordEmail = () => {
               typeof result.message === 'string' ? (
                 <Text>{result.message}</Text>
               ) : (
-                result.message.map((message, index) => (
-                  <Text key={index}> - {message};</Text>
-                ))
+                result.message.map((message, index) => <Text key={index}> - {message};</Text>)
               ),
             status: 'warning',
             duration: 9000,

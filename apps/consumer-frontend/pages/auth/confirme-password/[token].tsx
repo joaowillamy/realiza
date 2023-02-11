@@ -5,7 +5,8 @@ const ConfirmePassword = () => {
   const router = useRouter();
   const { token } = router.query;
 
-  return <ConfirmPasswordComponent />;
+  return <ConfirmPasswordComponent title={''} describe={''}  />;
 };
+
 
 export default ConfirmePassword;

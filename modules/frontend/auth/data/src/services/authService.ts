@@ -1,10 +1,11 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { CreateUserDto } from '../dto/createUserDto';
 import { CreateUserResponseDto } from '../dto/createUserResponseDto';
 import { DefaultResponseDto } from '../dto/DefaultResponseDto';
 import { MeDto } from '../dto/meDto';
 import { MeResponseDto } from '../dto/meResponseDto';
+import { SendEmailDto } from '../dto/sendEmailDto';
 import { SigninDto } from '../dto/SigninDto';
 import { SigninResponseDto } from '../dto/SigninResponseDto';
 import { serviceInstance, serviceProxyInstance } from './Instance';
@@ -74,21 +75,16 @@ export function AuthService() {
     }
   };
 
-  const sendRecoverPasswordEmail = async (email: string) => {
+  const sendRecoverPasswordEmail = async (email: SendEmailDto): Promise<DefaultResponseDto> => {
     try {
-      console.log(`este é o e-mail: ${JSON.stringify(email)}`);
       const response = await serviceInstance.post(`/send-recover-email`, email);
       return {
-        token: response.data.token,
+        // token: response.data.token,
         error: false,
         message: response.data.message,
       };
     } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status &&
-        error.response?.data?.message
-      ) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
         handleAxiosError('sendRecoverPasswordEmail', error);
         return {
           error: true,
@@ -132,3 +128,10 @@ export function AuthService() {
 }
 
 export default AuthService;
+function handleAxiosError(arg0: string, error: AxiosError<any, any>) {
+  throw new Error('Function not implemented.');
+}
+
+function handleUnexpectedError(arg0: string, arg1: Error) {
+  throw new Error('Function not implemented.');
+}
