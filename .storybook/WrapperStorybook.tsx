@@ -1,4 +1,4 @@
-import { Theme } from '@realiza/frontend/shared/ui';
+import { Theme } from './theme';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
