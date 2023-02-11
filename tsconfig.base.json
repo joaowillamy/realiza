@@ -26,7 +26,6 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": true,
-    "composite": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@realiza/api/authentication": [
@@ -63,6 +62,7 @@
     "tmp"
   ],
   "include": [
-    "./.storybook/WrapperStorybook.tsx"
+    "./.storybook/WrapperStorybook.tsx",
+    "./.storybook/theme.tsx"
   ]
 }

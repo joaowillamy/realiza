@@ -8,14 +8,18 @@
     "declaration": true
   },
   "files": [],
-  "include": ["./emotion.d.ts"],
+  "include": [
+    "./emotion.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
-    }
+    },
   ],
   "extends": "../../../../tsconfig.base.json"
 }
