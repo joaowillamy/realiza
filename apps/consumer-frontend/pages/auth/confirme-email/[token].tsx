@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { BsShieldCheck, BsShieldLock, BsShieldX } from 'react-icons/bs';
 
-const ConfirmeEmail = () => {
+export type ConfirmeEmailProps = Record<string, never>;
+
+export const ConfirmeEmail = (props: ConfirmeEmailProps) => {
   const router = useRouter();
   const { token } = router.query;
   const { confirmEmailByToken, isLoading, error, data } = useAuthConfirmEmailByToken();

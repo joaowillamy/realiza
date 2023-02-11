@@ -55,6 +55,28 @@ yarn nx lint <project name>
 
 ```
 
+## Running Storybook:
+```
+nx run project-name:storybook
+nx storybook project-name
+nx run project-name:build-storybook
+```
+
+## criar um novo story
+
+```
+nx generate @nrwl/react:component-story --componentPath=<path> --project=<projec-name> --verbose
+```
+### example:
+```
+nx generate @nrwl/react:component-story --componentPath=pages/auth/confirme-email/[token].tsx --project=consumer-frontend --verbose
+```
+
+## Configure your Story project using TypeScript
+```
+nx generate @nrwl/react:storybook-configuration <project-name> --bundler=webpack --configureTestRunner --no-generateCypressSpecs --tsConfiguration
+```
+
 ## Grouping modules:
 
 #### backend modules
