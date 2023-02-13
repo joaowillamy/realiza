@@ -4,11 +4,10 @@
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "declaration": true,
+    "strict": true
   },
   "files": [],
-  "include": ["./emotion.d.ts"],
+  "include": [],
   "references": [
     {
       "path": "./tsconfig.lib.json"
