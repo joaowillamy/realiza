@@ -36,3 +36,5 @@ nx.json
 project.json
 
 **/*tsconfig.*.json
+
+**/*.hbs
