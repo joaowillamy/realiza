@@ -24,5 +24,7 @@ export async function middleware(request: NextRequest) {
 function IsAuthenticated(request: NextRequest): boolean {
   const token = request.cookies.get('tokenHttpOnly')?.value;
 
+  if (!token) return false;
+
   return token?.length > 0 && token !== undefined && token !== 'undefined';
 }
