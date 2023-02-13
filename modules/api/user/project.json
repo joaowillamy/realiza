@@ -18,6 +18,12 @@
         "jestConfig": "modules/api/user/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
     }
   },
   "tags": []

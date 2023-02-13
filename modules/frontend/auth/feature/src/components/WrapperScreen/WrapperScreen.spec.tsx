@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import WrapperScreen from './WrapperScreen';
+import { WrapperScreen } from './WrapperScreen';
 
 describe('WrapperScreen', () => {
   it('should render successfully', () => {

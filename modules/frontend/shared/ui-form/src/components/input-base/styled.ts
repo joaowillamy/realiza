@@ -1,8 +1,9 @@
 import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { BaseTheme } from '@realiza/frontend/shared/ui';
 
 export const Wrapper = styled(FormControl)`
-  padding: ${({ theme }) => theme.space[2]};
+  padding: ${({ theme }: BaseTheme) => theme?.space[2]};
 `;
 
 export const Label = styled(FormLabel)`
@@ -10,5 +11,5 @@ export const Label = styled(FormLabel)`
 `;
 
 export const Error = styled(FormErrorMessage)`
-  color: ${({ theme }) => theme.colors.red[500]};
+  color: ${({ theme }: BaseTheme) => theme?.colors.red[500]};
 `;

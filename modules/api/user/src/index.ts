@@ -2,7 +2,7 @@ export { ChangePasswordDto } from './user/dto/change-password.dto';
 export { CreateUserDto } from './user/dto/create-user.dto';
 export { CredentialsDto } from './user/dto/credentials.dto';
 export { FindUsersQueryDto } from './user/dto/find-users-query.dto';
-export { ReturnUserDto } from './user/dto/return-user.dto';
+export * from './user/dto/return-user.dto';
 export { UpdateUserDto } from './user/dto/update-user.dto';
 export { User } from './user/entities/user.entity';
 export { UserModule } from './user/user.module';

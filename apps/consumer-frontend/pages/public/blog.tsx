@@ -1,4 +1,4 @@
-import { Menu } from '..';
+import { Menu } from '@realiza/frontend/shared/ui';
 
 export function Blog() {
   return (

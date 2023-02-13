@@ -21,6 +21,12 @@
         "jestConfig": "modules/frontend/shared/form/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
     }
   }
 }

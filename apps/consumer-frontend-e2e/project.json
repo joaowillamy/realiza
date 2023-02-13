@@ -23,6 +23,12 @@
       "options": {
         "lintFilePatterns": ["apps/consumer-frontend-e2e/**/*.{js,ts}"]
       }
+    },
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
     }
   },
   "tags": [],
