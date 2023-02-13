@@ -5,8 +5,9 @@
     "module": "commonjs",
     "types": ["jest", "node"],
     "declaration": true,
+    "composite": true,
+    "noEmit": false
   },
-  "composite": true,
   "include": [
     "jest.config.ts",
     "src/**/*.test.ts",

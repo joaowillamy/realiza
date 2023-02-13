@@ -1,4 +1,4 @@
-import { ConflictException, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { baseQueryBuilder, CustomRepository } from '@realiza/api/infrastructure';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
@@ -58,15 +58,16 @@ export class UserRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
     try {
       await user.save();
-      delete user.password;
-      delete user.salt;
-      return user;
-    } catch (error) {
+      const mapUser = new Map(Object.entries(user));
+      mapUser.delete('password');
+      mapUser.delete('salt');
+      return Object.fromEntries(mapUser) as User;
+    } catch (error: any) {
       // PostgreSQL Error Codes
       // 23505	unique_violation
       // For more information: https://www.postgresql.org/docs/10/errcodes-appendix.html
       const postgreErrorCodeUniqueViolation = '23505';
-      if ((error as Error).code.toString() === postgreErrorCodeUniqueViolation) {
+      if (error?.code?.toString() === postgreErrorCodeUniqueViolation) {
         throw new ConflictException('Endereço de email já está em uso');
       } else {
         throw new InternalServerErrorException('Erro ao salvar o usuário no banco de dados');
@@ -74,7 +75,7 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
+  async checkCredentials(credentialsDto: CredentialsDto): Promise<User | null> {
     const { email, password } = credentialsDto;
     const user = await this.findOne({ where: { email, status: true } });
 
@@ -87,6 +88,7 @@ export class UserRepository extends Repository<User> {
 
   async changePassword(id: string, password: string) {
     const user = await this.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('Not found user');
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
     user.recoverToken = null;
