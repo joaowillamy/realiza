@@ -55,6 +55,33 @@ yarn nx lint <project name>
 
 ```
 
+## tscheck
+### run
+```
+yarn tscheck
+
+or
+
+yarn nx run-many --target=tsc --all --only-failed 
+```
+
+### configure
+In a new module you have to add in `projec.json` this config
+```
+{
+  "targets": {
+    ...
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
+    }
+  }
+}
+```
+
+
 ## Grouping modules:
 
 #### backend modules

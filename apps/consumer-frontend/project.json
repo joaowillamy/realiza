@@ -57,6 +57,12 @@
       "options": {
         "lintFilePatterns": ["apps/consumer-frontend/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
     }
   },
   "tags": []

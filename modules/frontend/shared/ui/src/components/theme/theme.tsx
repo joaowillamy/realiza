@@ -11,6 +11,10 @@ const theme = extendBaseTheme({
   components: { ...chakraTheme.components },
 }) as ChakraTheme;
 
+export interface BaseTheme {
+  theme?: ChakraTheme;
+}
+
 export const Theme: React.FC<ThemeProps> = ({ children }) => {
   return <ChakraBaseProvider theme={theme}>{children}</ChakraBaseProvider>;
 };

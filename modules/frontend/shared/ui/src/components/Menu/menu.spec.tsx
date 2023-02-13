@@ -1,10 +1,31 @@
 import { render } from '@testing-library/react';
 
-import Footer from './menu';
+import Theme from '../theme/theme';
+import Menu from './menu';
 
-describe('Footer', () => {
+describe('Menu', () => {
+  beforeAll(() => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // Deprecated
+        removeListener: jest.fn(), // Deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })),
+    });
+  });
+
   it('should render successfully', () => {
-    const { baseElement } = render(<Footer />);
+    const { baseElement } = render(
+      <Theme>
+        <Menu />
+      </Theme>
+    );
     expect(baseElement).toBeTruthy();
   });
 });

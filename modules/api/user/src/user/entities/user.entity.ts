@@ -1,5 +1,13 @@
 import * as bcrypt from 'bcrypt';
-import { BaseEntity, Entity, Unique } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 @Unique(['email'])
@@ -26,10 +34,10 @@ export class User extends BaseEntity {
   salt!: string;
 
   @Column({ nullable: true, type: 'varchar', length: 64 })
-  confirmationToken?: string;
+  confirmationToken?: string | null;
 
   @Column({ nullable: true, type: 'varchar', length: 64 })
-  recoverToken?: string;
+  recoverToken?: string | null;
 
   @CreateDateColumn()
   createdAt!: Date;

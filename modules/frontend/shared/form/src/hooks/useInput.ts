@@ -4,25 +4,27 @@ import React from 'react';
 import { FormState, Resolver, UseFormRegister, ValidationMode } from 'react-hook-form';
 import * as yup from 'yup';
 
-export type InputConfig<FormData> = {
+type FormObject = { [key: string]: any };
+
+export type InputConfig<FormData extends FormObject> = {
   formState: FormState<FormData>;
   register: UseFormRegister<FormData>;
 };
 
-export type FormConfigValue<FormData> = {
+export type FormConfigValue<FormData extends FormObject> = {
   readonly validate: yup.StringSchema;
   readonly getInputConfig: (props: InputConfig<FormData>) => InputProps;
 };
 
-export type FormConfig<FormData> = {
+export type FormConfig<FormData extends FormObject> = {
   readonly [key in keyof FormData]: FormConfigValue<FormData>;
 };
 
-export type GetInputs<FormData> = {
+export type GetInputs<FormData extends FormObject> = {
   readonly [key in keyof FormData]: () => InputProps;
 };
 
-export function useGetInputs<FormData>(
+export function useGetInputs<FormData extends FormObject>(
   inputsConfig: InputConfig<FormData>,
   formConfig: FormConfig<FormData>
 ): GetInputs<FormData> {
@@ -39,7 +41,7 @@ export function useGetInputs<FormData>(
   return inputs;
 }
 
-export const getUseFormConfig = <FormData>(
+export const getUseFormConfig = <FormData extends FormObject>(
   formConfig: FormConfig<FormData>
 ): {
   resolver: Resolver<FormData, any>;
@@ -56,7 +58,7 @@ export const getUseFormConfig = <FormData>(
   const schema = yup.object(validators).required();
 
   return {
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as unknown as Resolver<FormData, any>,
     mode: 'onChange',
   };
 };

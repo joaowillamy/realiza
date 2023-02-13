@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class CreateUserDto {
-  email: string;
   @IsNotEmpty({
     message: 'Informe um endereço de email',
   })
@@ -18,7 +17,6 @@ export class CreateUserDto {
   @ApiProperty({ example: 'email@gmail.com', description: 'user email' })
   email!: string;
 
-  name: string;
   @IsNotEmpty({
     message: 'Informe o nome do usuário',
   })
@@ -28,7 +26,6 @@ export class CreateUserDto {
   @ApiProperty({ example: 'will', description: 'user name' })
   name!: string;
 
-  password: string;
   @IsNotEmpty({
     message: 'Informe uma senha',
   })
@@ -41,7 +38,6 @@ export class CreateUserDto {
   @ApiProperty({ example: 'pass', description: 'user password' })
   password!: string;
 
-  passwordConfirmation: string;
   @IsNotEmpty({
     message: 'Informe a confirmação de senha',
   })

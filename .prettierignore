@@ -9,3 +9,32 @@ tsconfig.base.json
 tsconfig.json
 package.json
 nx.json
+*.md
+
+**/.next/
+
+# Node Modules
+**/node_modules/
+**/__snapshots__/
+
+
+# Storybook
+**/storybook-static/
+
+# Environment
+**/.env
+
+# Docker Environment variable file
+**/*.env
+
+# Editor files
+**/.vscode/
+**/.idea/
+
+**/.yarn/
+
+project.json
+
+**/*tsconfig.*.json
+
+**/*.hbs

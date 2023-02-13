@@ -1,6 +1,8 @@
-import { ObjectLiteral, SelectQueryBuilder } from 'typeorm';
+import { SelectQueryBuilder } from 'typeorm';
 
-export const baseQueryBuilder = <Entity extends ObjectLiteral>(
+type EntityObject = { [key: string]: any };
+
+export const baseQueryBuilder = <Entity extends EntityObject>(
   query: SelectQueryBuilder<Entity>,
   sort: string,
   page = 1,

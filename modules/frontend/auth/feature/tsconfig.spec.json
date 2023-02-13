@@ -4,9 +4,11 @@
     "outDir": "../../../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"],
+    "jsx": "react",
     "declaration": true,
+    "composite": true,
+    "noEmit": false
   },
-  "composite": true,
   "include": [
     "jest.config.ts",
     "src/**/*.test.ts",
@@ -17,6 +19,10 @@
     "src/**/*.spec.js",
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }
