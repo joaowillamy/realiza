@@ -63,7 +63,7 @@ export class AuthenticationService {
   }
 
   async confirmEmail(confirmationToken: string): Promise<void> {
-    const result = await this.userRepository.update({ confirmationToken }, { confirmationToken: null });
+    const result = await this.userRepository.update({ confirmationToken }, { confirmationToken: undefined });
     if (result.affected === 0) throw new NotFoundException('Token inválido');
   }
 
