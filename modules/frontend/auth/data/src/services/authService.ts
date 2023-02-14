@@ -1,5 +1,7 @@
 import axios, { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 
+import { ConfirmPasswordDto } from '../dto/confirmPasswordDto';
 import { CreateUserDto } from '../dto/createUserDto';
 import { CreateUserResponseDto } from '../dto/createUserResponseDto';
 import { DefaultResponseDto } from '../dto/DefaultResponseDto';
@@ -77,7 +79,6 @@ export function AuthService() {
 
   const sendRecoverPasswordEmail = async (email: SendEmailDto) => {
     try {
-      console.log(`este é o e-mail: ${JSON.stringify(email)}`);
       const response = await serviceInstance.post(`/send-recover-email`, email);
       return {
         token: response.data.token,
@@ -94,6 +95,26 @@ export function AuthService() {
       }
 
       throw log.unexpectedError('sendRecoverPasswordEmail', error as Error);
+    }
+  };
+
+  const confirmPasswordByToken = async (token: string, data: ConfirmPasswordDto): Promise<DefaultResponseDto> => {
+    try {
+      const response = await serviceInstance.patch<DefaultResponseDto>(`/reset-password/${token}`, data);
+      return {
+        error: false,
+        message: response.data.message,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
+        log.apiError('confirmPasswordByToken', error);
+        return {
+          error: true,
+          message: error.response.data.message,
+        };
+      }
+
+      throw log.unexpectedError('confirmPasswordByToken', error as Error);
     }
   };
 
@@ -124,6 +145,7 @@ export function AuthService() {
     confirmEmailByToken,
     signin,
     sendRecoverPasswordEmail,
+    confirmPasswordByToken,
     me,
   };
 }

@@ -5,7 +5,7 @@ const ConfirmePassword = () => {
   const router = useRouter();
   const { token } = router.query;
 
-  return <ConfirmPasswordComponent title={''} describe={''}  />;
+  return <ConfirmPasswordComponent title={'Realiza'} describe={''}  />;
 };
 
 
