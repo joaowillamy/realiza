@@ -23,10 +23,11 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "noEmit": true,
+    "noEmit": false,
     "resolveJsonModule": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
     "paths": {
       "@realiza/api/authentication": [
         "modules/api/authentication/src/index.ts"

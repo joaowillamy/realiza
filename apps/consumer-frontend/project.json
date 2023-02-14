@@ -100,6 +100,12 @@
       "options": {
         "command": "test-storybook -c apps/consumer-frontend/.storybook --url=http://localhost:4400"
       }
+    },
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
     }
   },
   "tags": []

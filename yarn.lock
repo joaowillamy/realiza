@@ -3175,6 +3175,19 @@
     tar "6.1.11"
     yargs-parser ">=21.0.1"
 
+"@nrwl/nx-plugin@^15.6.3":
+  version "15.6.3"
+  resolved "https://registry.yarnpkg.com/@nrwl/nx-plugin/-/nx-plugin-15.6.3.tgz#5f0008a127d5e2528e0b453c9f8beaac62bfc483"
+  integrity sha512-pkm5nGbYM/hhc+Xuv3diYo3O/AHRtnQPcI19xa+ZWHCajIgEWB1mftdyYWrk4m08b3ySh+MSZPk3qh8LHM03JQ==
+  dependencies:
+    "@nrwl/devkit" "15.6.3"
+    "@nrwl/jest" "15.6.3"
+    "@nrwl/js" "15.6.3"
+    "@nrwl/linter" "15.6.3"
+    dotenv "~10.0.0"
+    fs-extra "^11.1.0"
+    tslib "^2.3.0"
+
 "@nrwl/react@15.6.3":
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-15.6.3.tgz#2165d6b51b99bde0f1e4e9dc784f35f687e2cc1b"
@@ -5854,6 +5867,11 @@
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
+
+"@webpro/nx-tsc@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@webpro/nx-tsc/-/nx-tsc-0.0.1.tgz#dd1ce5fc5e7681c47bb2c1f4545f31a90c689bac"
+  integrity sha512-snYRGq3xG/tgPEUWV4ES/4gbEJtKAqfwou/Denq14G7hQ2aqP52mej26iS4Sb/2nd7ryEz1cml8efsNNgtbs6A==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"

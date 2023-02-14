@@ -60,6 +60,12 @@
       "options": {
         "command": "test-storybook -c modules/frontend/auth/feature/.storybook --url=http://localhost:4400"
       }
+    },
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
     }
   }
 }

@@ -54,7 +54,34 @@ yarn nx lint api
 yarn nx lint <project name>
 
 ```
+## tscheck
+### run
+```
+yarn tscheck
 
+or
+
+yarn nx run-many --target=tsc --all --only-failed 
+```
+
+### configure
+In a new module you have to add in `projec.json` this config
+```
+{
+  "targets": {
+    ...
+    "tsc": {
+      "executor": "@webpro/nx-tsc:tsc",
+      "options": {
+        "tsConfig": ["tsconfig.json"]
+      }
+    }
+  }
+}
+```
+
+
+## Storybook
 ### Running Storybook:
 ```
 nx run project-name:storybook
@@ -76,6 +103,7 @@ nx generate @nrwl/react:component-story --componentPath=pages/auth/confirme-emai
 ```
 nx generate @nrwl/react:storybook-configuration consumer-frontend --bundler=webpack --configureTestRunner --no-generateCypressSpecs --tsConfiguration
 ```
+
 
 ## Grouping modules:
 
