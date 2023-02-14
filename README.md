@@ -54,7 +54,7 @@ yarn nx lint api
 yarn nx lint <project name>
 
 ```
-## tscheck
+## Typescript check - tscheck
 ### run
 ```
 yarn tscheck
@@ -102,6 +102,15 @@ nx generate @nrwl/react:component-story --componentPath=pages/auth/confirme-emai
 ### Configure your Story project using TypeScript
 ```
 nx generate @nrwl/react:storybook-configuration consumer-frontend --bundler=webpack --configureTestRunner --no-generateCypressSpecs --tsConfiguration
+```
+
+
+## Test (Jest)
+### Running test:
+```
+yarn test
+nx run project-name:test
+nx test project-name
 ```
 
 
