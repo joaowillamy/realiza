@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next/router';
 
 import { ConfirmPasswordDto } from '../dto/confirmPasswordDto';
 import { CreateUserDto } from '../dto/createUserDto';
@@ -98,7 +97,13 @@ export function AuthService() {
     }
   };
 
-  const confirmPasswordByToken = async (token: string, data: ConfirmPasswordDto): Promise<DefaultResponseDto> => {
+  const confirmPasswordByToken = async ({
+    token,
+    data,
+  }: {
+    token: string;
+    data: ConfirmPasswordDto;
+  }): Promise<DefaultResponseDto> => {
     try {
       const response = await serviceInstance.patch<DefaultResponseDto>(`/reset-password/${token}`, data);
       return {

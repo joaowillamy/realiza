@@ -43,7 +43,8 @@
           "error",
           {
             "singleQuote": true,
-            "parser": "typescript"
+            "parser": "typescript",
+            "printWidth": 120
           }
         ]
       }

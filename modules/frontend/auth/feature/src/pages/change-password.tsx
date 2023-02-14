@@ -6,8 +6,9 @@ import {
   onSubmitDevTest,
   useGetInputs,
 } from '@realiza/frontend/shared/form';
-import { Password } from '@realiza/frontend/shared/ui-form';
+import { Input } from '@realiza/frontend/shared/ui-form';
 import NextLink from 'next/link';
+import React from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
 import { WrapperAuth } from '../components/WrapperAuth/wrapperAuth';
@@ -47,7 +48,7 @@ export function ChangePassword({
         onSubmit={handleSubmit(submitHandlerOnValid, SubmitErrorHandlerOnInvalid)}
         subDescribe={<Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>}
       >
-        <Password {...inputs.email()} />
+        <Input {...inputs.email()} />
 
         <Button mt={4} colorScheme="twitter" isLoading={formState.isSubmitting} type="submit">
           Enviar

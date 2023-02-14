@@ -1,6 +1,7 @@
 export * from './dto/createUserDto';
 export * from './dto/SigninDto';
 export * from './hooks/useAuthConfirmEmailByToken';
+export * from './hooks/useAuthConfirmPasswordByToken';
 export * from './hooks/useAuthCreateUser';
 export * from './hooks/useAuthLogout';
 export * from './hooks/useAuthSendRecoverPasswordEmail';

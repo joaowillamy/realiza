@@ -18,7 +18,7 @@ export const useAuthConfirmPasswordByToken = () => {
     async function mutationRequestWrapper(requestData: ConfirmPasswordDto): Promise<DefaultResponseDto> {
       const { token } = router.query;
       if (token) {
-        return authService.confirmPasswordByToken(token.toString(), requestData);
+        return authService.confirmPasswordByToken({ token: token.toString(), data: requestData });
       }
       return {
         error: true,
@@ -28,7 +28,7 @@ export const useAuthConfirmPasswordByToken = () => {
     [authService, router.query]
   );
 
-  const mutationProperties: UseMutationOptions<ConfirmPasswordDto | null, unknown, unknown, unknown> = {
+  const mutationProperties: UseMutationOptions<DefaultResponseDto | null, unknown, unknown, unknown> = {
     onSuccess(data) {
       console.log({ data });
       queryClient.invalidateQueries([QUERY_KEYS.ME]);
@@ -41,22 +41,21 @@ export const useAuthConfirmPasswordByToken = () => {
   const { mutateAsync, error, data, isLoading } = useMutation(mutationRequest, mutationProperties);
 
   const confirmPasswordByToken = React.useCallback(
-    async (token: string, requestData: ConfirmPasswordDto) => {
+    async (requestData: ConfirmPasswordDto) => {
       try {
         const result = await mutateAsync(requestData);
 
         if (!result?.error) {
           toast({
-            title: 'E-mail confirmado com sucesso',
+            title: 'Senha alterada com sucesso',
             description: 'Já pode entrar na nossa aplicação <3',
             status: 'success',
-            duration: 9000,
+            duration: 4000,
             isClosable: true,
           });
-          const time = setTimeout(() => {
+          setTimeout(() => {
             router.replace('/auth/sign-in');
-            clearTimeout(time);
-          }, 400);
+          }, 4000);
         } else {
           toast({
             title: 'Verifique as informações:',

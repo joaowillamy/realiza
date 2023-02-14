@@ -1,5 +1,4 @@
 import { Text, useToast } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useMutation, UseMutationOptions, useQueryClient } from 'react-query';
 
@@ -13,7 +12,6 @@ export const useAuthSendRecoverPasswordEmail = () => {
   const queryClient = useQueryClient();
   const authService = AuthService();
   const toast = useToast();
-  const router = useRouter();
 
   const mutationRequest = React.useCallback(
     async function mutationRequestWrapper(requestData: SendEmailDto): Promise<DefaultResponseDto> {
@@ -47,10 +45,6 @@ export const useAuthSendRecoverPasswordEmail = () => {
             duration: 9000,
             isClosable: true,
           });
-          const time = setTimeout(() => {
-            router.replace('/auth/sign-in');
-            clearTimeout(time);
-          }, 4000);
         } else {
           toast({
             title: 'Verifique as informações:',
@@ -75,7 +69,7 @@ export const useAuthSendRecoverPasswordEmail = () => {
         });
       }
     },
-    [mutateAsync, router, toast]
+    [mutateAsync, toast]
   );
 
   return { error, data, isLoading, sendRecoverPasswordEmail };
