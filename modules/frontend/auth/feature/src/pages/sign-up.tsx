@@ -12,7 +12,7 @@ import { Input, Password } from '@realiza/frontend/shared/ui-form';
 import NextLink from 'next/link';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
-import { WrapperAuth } from '../components/WrapperAuth/wrapperAuth';
+import { WrapperAuth } from '../components/WrapperAuth/WrapperAuth';
 import WrapperScreen from '../components/WrapperScreen/WrapperScreen';
 
 const userForm = defaultUserForm<CreateUserDto>();

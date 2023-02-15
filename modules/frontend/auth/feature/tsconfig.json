@@ -7,14 +7,16 @@
     "strict": true
   },
   "files": [],
-  "include": [],
+  "include": [
+    "./emotion.d.ts",
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
-    }
+    },
   ],
   "extends": "../../../../tsconfig.base.json"
 }

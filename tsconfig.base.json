@@ -61,5 +61,9 @@
   "exclude": [
     "node_modules",
     "tmp"
+  ],
+  "include": [
+    "./.storybook/WrapperStorybook.tsx",
+    "./.storybook/theme.tsx"
   ]
 }

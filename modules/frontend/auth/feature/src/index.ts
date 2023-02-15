@@ -1,4 +1,4 @@
-export * from './components/WrapperAuth/wrapperAuth';
+export * from './components/WrapperAuth/WrapperAuth';
 export * from './components/WrapperScreen/WrapperScreen';
 export * from './pages/change-password';
 export * from './pages/sign-in';
