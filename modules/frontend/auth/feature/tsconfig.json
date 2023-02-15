@@ -9,8 +9,6 @@
   "files": [],
   "include": [
     "./emotion.d.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
   ],
   "references": [
     {
