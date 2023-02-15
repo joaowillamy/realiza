@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import { ConfirmPasswordDto } from '../dto/confirmPasswordDto';
 import { CreateUserDto } from '../dto/createUserDto';
@@ -86,7 +86,7 @@ export function AuthService() {
       };
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
-        handleAxiosError('sendRecoverPasswordEmail', error);
+        log.apiError('sendRecoverPasswordEmail', error);
         return {
           error: true,
           message: error.response.data.message,
@@ -156,10 +156,3 @@ export function AuthService() {
 }
 
 export default AuthService;
-function handleAxiosError(arg0: string, error: AxiosError<any, any>) {
-  throw new Error('Function not implemented.');
-}
-
-function handleUnexpectedError(arg0: string, arg1: Error) {
-  throw new Error('Function not implemented.');
-}
