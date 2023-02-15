@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+import { ConfirmPasswordDto } from '../dto/confirmPasswordDto';
 import { CreateUserDto } from '../dto/createUserDto';
 import { CreateUserResponseDto } from '../dto/createUserResponseDto';
 import { DefaultResponseDto } from '../dto/DefaultResponseDto';
 import { MeDto } from '../dto/meDto';
 import { MeResponseDto } from '../dto/meResponseDto';
+import { SendEmailDto } from '../dto/sendEmailDto';
 import { SigninDto } from '../dto/SigninDto';
 import { SigninResponseDto } from '../dto/SigninResponseDto';
 import { serviceInstance, serviceProxyInstance } from './Instance';
@@ -74,6 +76,53 @@ export function AuthService() {
     }
   };
 
+  const sendRecoverPasswordEmail = async (email: SendEmailDto) => {
+    try {
+      const response = await serviceInstance.post(`/send-recover-email`, email);
+      return {
+        token: response.data.token,
+        error: false,
+        message: response.data.message,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
+        log.apiError('sendRecoverPasswordEmail', error);
+        return {
+          error: true,
+          message: error.response.data.message,
+        };
+      }
+
+      throw log.unexpectedError('sendRecoverPasswordEmail', error as Error);
+    }
+  };
+
+  const confirmPasswordByToken = async ({
+    token,
+    data,
+  }: {
+    token: string;
+    data: ConfirmPasswordDto;
+  }): Promise<DefaultResponseDto> => {
+    try {
+      const response = await serviceInstance.patch<DefaultResponseDto>(`/reset-password/${token}`, data);
+      return {
+        error: false,
+        message: response.data.message,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status && error.response?.data?.message) {
+        log.apiError('confirmPasswordByToken', error);
+        return {
+          error: true,
+          message: error.response.data.message,
+        };
+      }
+
+      throw log.unexpectedError('confirmPasswordByToken', error as Error);
+    }
+  };
+
   const me = async (): Promise<MeResponseDto> => {
     try {
       const response = await serviceProxyInstance.get<MeDto>(`/authentication/me`);
@@ -96,7 +145,14 @@ export function AuthService() {
     }
   };
 
-  return { createUser, confirmEmailByToken, signin, me };
+  return {
+    createUser,
+    confirmEmailByToken,
+    signin,
+    sendRecoverPasswordEmail,
+    confirmPasswordByToken,
+    me,
+  };
 }
 
 export default AuthService;

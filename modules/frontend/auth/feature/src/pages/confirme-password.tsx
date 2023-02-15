@@ -7,6 +7,7 @@ import {
   useGetInputs,
 } from '@realiza/frontend/shared/form';
 import { Password } from '@realiza/frontend/shared/ui-form';
+import React from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
 import { WrapperAuth } from '../components/WrapperAuth/wrapperAuth';
@@ -46,7 +47,7 @@ export function ConfirmePassword({
         title={title}
         describe={describe}
         onSubmit={handleSubmit(submitHandlerOnValid, SubmitErrorHandlerOnInvalid)}
-        subDescribe={<Text color={'gray.500'}>Enviaremos um e-mail para sua conta</Text>}
+        subDescribe={<Text color={'gray.500'}>Redefina sua senha</Text>}
       >
         <Password {...inputs.password()} />
         <Password {...inputs.passwordConfirmation()} />

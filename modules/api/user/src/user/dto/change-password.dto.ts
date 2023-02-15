@@ -16,6 +16,7 @@ export class ChangePasswordDto {
   })
   @ApiProperty({ example: 'pass', description: 'user password' })
   password!: string;
+
   @IsString({
     message: 'Informe uma senha válida',
   })
